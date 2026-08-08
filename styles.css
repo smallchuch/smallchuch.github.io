@@ -122,6 +122,26 @@ a { color: var(--text-link); }
 
 .cta { display: flex; gap: .8rem; flex-wrap: wrap; margin-top: 1.6rem; }
 
+/* ---- Hero two-column layout + headshot ---- */
+.hero-grid {
+  display: grid; grid-template-columns: 1.2fr .8fr;
+  gap: clamp(1.5rem, 5vw, 3.5rem); align-items: center;
+}
+.hero-photo { display: flex; justify-content: center; }
+.headshot, .headshot-ph {
+  width: clamp(220px, 26vw, 320px); aspect-ratio: 1 / 1;
+  border-radius: 50%; object-fit: cover;
+  border: 5px solid var(--bg-surface);
+  box-shadow: var(--shadow-lg), 0 0 0 2px var(--jac-200);
+}
+.headshot-ph {
+  display: none; /* shown via JS only if the image is missing */
+  align-items: center; justify-content: center; text-align: center;
+  background: linear-gradient(135deg, var(--jac-100), var(--gold-100));
+  color: var(--jac-400); font-family: var(--font-mono); font-size: .8rem;
+  padding: 1rem;
+}
+
 /* ---- Buttons ---- */
 .btn {
   display: inline-flex; align-items: center; gap: .4rem;
@@ -269,6 +289,8 @@ a { color: var(--text-link); }
 /* ---- Responsive ---- */
 @media (max-width: 760px) {
   .featured { grid-template-columns: 1fr; }
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-photo { order: -1; margin-bottom: .5rem; justify-content: flex-start; }
   .footer-inner { grid-template-columns: 1fr 1fr; }
   .nav-links { gap: .9rem; font-size: .85rem; }
   .brand .brand-sub { display: none; }
