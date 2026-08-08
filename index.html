@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chuch — Data & Analytics Portfolio</title>
+  <meta name="description" content="Portfolio of Chuch — credit risk modelling, data analysis, and business intelligence projects." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ===== NAV ===== -->
+  <header class="nav">
+    <a href="#top" class="brand">Chuch<span>.</span></a>
+    <nav class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="#cv">CV</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section id="top" class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Data Analyst &middot; Credit Risk &middot; BI</p>
+      <h1>Hi, I'm <span class="grad">Chuch</span>.<br />I turn messy data into decisions.</h1>
+      <p class="lead">
+        I build credit risk models, dig into data with Python, and ship
+        dashboards that people actually use. Below is a selection of my work —
+        notebooks, presentations, dashboards, and more.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#projects">See my work</a>
+        <a class="btn btn-ghost" href="#contact">Get in touch</a>
+      </div>
+    </div>
+    <div class="hero-blob" aria-hidden="true"></div>
+  </section>
+
+  <!-- ===== PROJECTS ===== -->
+  <main id="projects" class="section">
+    <div class="section-head">
+      <h2>Projects</h2>
+      <p>Filter by type or scroll through everything.</p>
+    </div>
+
+    <div class="filters" role="tablist">
+      <button class="chip active" data-filter="all">All</button>
+      <button class="chip" data-filter="notebook">Notebooks</button>
+      <button class="chip" data-filter="quarto">Presentations</button>
+      <button class="chip" data-filter="powerbi">Power BI</button>
+      <button class="chip" data-filter="sql">SQL</button>
+      <button class="chip" data-filter="excel">Excel</button>
+    </div>
+
+    <div class="grid">
+      <!-- FEATURED: Credit Risk EDA -->
+      <article class="card featured" data-type="notebook">
+        <span class="tag tag-notebook">Jupyter Notebook</span>
+        <h3>Credit Risk Modelling — Exploratory Data Analysis</h3>
+        <p>
+          Deep-dive EDA on a lending dataset: default drivers, feature
+          distributions, missingness, and early signal for a PD model. Built in
+          Python (pandas, seaborn, scikit-learn).
+        </p>
+        <div class="card-links">
+          <a href="#" data-placeholder>View notebook &rarr;</a>
+          <a href="#" data-placeholder>GitHub repo</a>
+        </div>
+      </article>
+
+      <article class="card" data-type="quarto">
+        <span class="tag tag-quarto">Quarto</span>
+        <h3>Project presentation title</h3>
+        <p>Short description of what this Quarto-generated report or slide deck covers and the key takeaway.</p>
+        <div class="card-links">
+          <a href="#" data-placeholder>View presentation &rarr;</a>
+        </div>
+      </article>
+
+      <article class="card" data-type="powerbi">
+        <span class="tag tag-powerbi">Power BI</span>
+        <h3>Dashboard title</h3>
+        <p>What the dashboard tracks, who it's for, and the decision it supports. Embed or link the published report.</p>
+        <div class="card-links">
+          <a href="#" data-placeholder>Open dashboard &rarr;</a>
+        </div>
+      </article>
+
+      <article class="card" data-type="sql">
+        <span class="tag tag-sql">SQL</span>
+        <h3>SQL project title</h3>
+        <p>The problem, the schema, and the queries. Link to the repo or a writeup of the analysis.</p>
+        <div class="card-links">
+          <a href="#" data-placeholder>View queries &rarr;</a>
+        </div>
+      </article>
+
+      <article class="card" data-type="excel">
+        <span class="tag tag-excel">Excel</span>
+        <h3>Excel model title</h3>
+        <p>Financial model, analysis, or automation. Describe the inputs, logic, and output. Link the file.</p>
+        <div class="card-links">
+          <a href="#" data-placeholder>Download workbook &rarr;</a>
+        </div>
+      </article>
+
+      <article class="card" data-type="notebook">
+        <span class="tag tag-notebook">Jupyter Notebook</span>
+        <h3>Another notebook project</h3>
+        <p>Duplicate this card for each additional project. Swap the tag and <code>data-type</code> to match.</p>
+        <div class="card-links">
+          <a href="#" data-placeholder>View notebook &rarr;</a>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about" class="section about">
+    <div class="section-head">
+      <h2>About</h2>
+    </div>
+    <div class="about-body">
+      <p>
+        Write a couple of paragraphs here about your background, what you're
+        focused on right now (credit risk modelling, data analysis), and what
+        you're looking for. Keep it human — this is the section people read
+        after they've been impressed by a project.
+      </p>
+      <div class="skills">
+        <span>Python</span><span>pandas</span><span>scikit-learn</span>
+        <span>SQL</span><span>Power BI</span><span>Excel</span>
+        <span>Quarto</span><span>Statistics</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CV ===== -->
+  <section id="cv" class="section cv">
+    <div class="cv-card">
+      <div>
+        <h2>Curriculum Vitae</h2>
+        <p>Grab a PDF copy of my full CV.</p>
+      </div>
+      <a class="btn btn-primary" href="cv.pdf" download>Download CV</a>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact" class="section contact">
+    <div class="section-head">
+      <h2>Let's talk</h2>
+      <p>Open to opportunities and collaboration.</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:chuchdeveloper@proton.me">Email</a>
+      <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; <span id="year"></span> Chuch. Built with plain HTML &amp; CSS.</p>
+  </footer>
+
+  <script>
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Project filtering
+    const chips = document.querySelectorAll(".chip");
+    const cards = document.querySelectorAll(".card");
+    chips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        chips.forEach((c) => c.classList.remove("active"));
+        chip.classList.add("active");
+        const filter = chip.dataset.filter;
+        cards.forEach((card) => {
+          const show = filter === "all" || card.dataset.type === filter;
+          card.style.display = show ? "" : "none";
+        });
+      });
+    });
+
+    // Prevent placeholder links from jumping
+    document.querySelectorAll("[data-placeholder]").forEach((a) =>
+      a.addEventListener("click", (e) => e.preventDefault())
+    );
+  </script>
+</body>
+</html>
