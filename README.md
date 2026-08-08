@@ -1,89 +1,105 @@
 # Chuch — Portfolio Website
 
-A bold, single-page portfolio built with plain HTML + CSS (no build step, no
-frameworks). Designed to showcase data & analytics projects: Jupyter notebooks,
-Quarto presentations, Power BI dashboards, SQL, and Excel work.
+A hand-built, no-framework portfolio (plain HTML + CSS + a little JS) for
+showcasing credit-risk and data-analytics work: Quarto presentations, Jupyter
+notebooks, Power BI dashboards, SQL, and Excel projects. Styled with my own
+brand design system (jacaranda / gold / olive on warm off-white — Inter, DM
+Sans, JetBrains Mono), ported from `python_style_util.py`.
 
-## Files
+## Structure
 
 ```
-index.html    # all the content and structure
-styles.css    # all the styling (colors, layout, animations)
-cv.pdf        # your CV — add this file so the Download CV button works
-README.md     # this file
+index.html                         # home / landing page
+projects.html                      # projects index (filter tabs + cards)
+styles.css                         # shared design system — edit colors here
+cv.pdf                             # your CV (add this file)
+img/                               # screenshots for cards/featured (optional)
+projects/
+  credit-risk-eda/
+    index.html                     # a project detail page (copy this per project)
+    presentation.html              # the rendered Quarto deck (replace placeholder)
 ```
 
-## Customising it
+Each project lives in its own folder under `projects/` with an `index.html`
+(the write-up page) and a `presentation.html` (the embedded Quarto deck). Source
+code and notebooks stay in **separate GitHub repos** — the project page just
+links out to them.
 
-Everything you need to edit is in `index.html`:
+## Adding a new project
 
-- **Hero text** — the headline and intro paragraph at the top.
-- **Projects** — each project is a `<article class="card">`. To add one, copy an
-  existing card and change the title, description, tag, and links. Set the
-  `data-type` attribute to one of `notebook`, `quarto`, `powerbi`, `sql`, or
-  `excel` so the filter buttons work.
-- **Links** — replace the `href="#"` placeholders with real links (GitHub repo,
-  nbviewer/HTML export of a notebook, published Power BI report, etc.).
-- **About / CV / Contact** — plain text and links near the bottom.
+1. **Copy** `projects/credit-risk-eda/` to `projects/<your-project>/`.
+2. **Edit** `projects/<your-project>/index.html` — title, description, tech
+   chips, the write-up prose, and the three action buttons (presentation,
+   source repo, notebook). The links to `../../styles.css`, `../../index.html`
+   etc. already point two levels up, so leave those as-is.
+3. **Add a card** on `projects.html`: copy an existing `<a class="card" ...>`
+   block into the right category group, point its `href` at your new folder,
+   and set `data-type` to one of `notebook`, `quarto`, `powerbi`, `sql`, or
+   `excel` (this drives the filter tabs and their counts).
 
-Colors live at the top of `styles.css` under `:root` — change the `--grad-*`
-variables to reshape the whole palette.
+### Embedding a Quarto presentation
 
-### Tips for linking each project type
+Render your deck to a **self-contained** HTML file so it works as a single
+embed:
 
-- **Jupyter notebooks** — commit the `.ipynb` to the repo (GitHub renders it), or
-  export to HTML (`jupyter nbconvert --to html`) and link the HTML file. You can
-  also link an [nbviewer](https://nbviewer.org) URL.
-- **Quarto** — render to HTML (`quarto render`) and drop the output into the repo;
-  link the generated `.html`.
-- **Power BI** — use "Publish to web" in the Power BI service to get an embed/link
-  URL, then link or `<iframe>` it. (Note: publish-to-web is public — don't use it
-  for sensitive data.)
-- **SQL / Excel** — link the file in the repo, or write a short markdown/HTML
-  writeup and link that.
+```bash
+quarto render deck.qmd --to revealjs --embed-resources
+```
 
-## Deploying to GitHub Pages (free)
+`--embed-resources` inlines the CSS/JS/images into one HTML file. Rename the
+output to `presentation.html` and drop it in the project folder, replacing the
+placeholder. The project page embeds it in a responsive 16:9 frame; the "Open
+presentation fullscreen" button opens it on its own.
 
-1. **Create the repo.** Sign in to GitHub and make a new repository. For a
-   personal site at `https://<username>.github.io`, name it exactly
-   `<username>.github.io`. Any other name works too — it'll just live at
-   `https://<username>.github.io/<repo-name>/`.
+> Tip: if you don't use `--embed-resources`, Quarto also creates a
+> `deck_files/` folder — commit that alongside `presentation.html` so the deck
+> can find its assets.
 
-2. **Add these files** to the repo (drag-and-drop in the browser, or use git):
+### Embedding a Power BI dashboard
 
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial portfolio"
-   git branch -M main
-   git remote add origin https://github.com/<username>/<repo>.git
-   git push -u origin main
-   ```
+In the Power BI service, use **File → Embed report → Publish to web (public)**
+to get an `<iframe>` snippet, then paste it inside the `.embed-frame` div on the
+project page in place of the Quarto iframe. Note: publish-to-web is **public** —
+never use it for confidential data. Keep dashboards to "at most one or two," as
+you planned.
 
-3. **Turn on Pages.** In the repo, go to **Settings → Pages**. Under "Build and
-   deployment", set **Source: Deploy from a branch**, pick branch **main** and
-   folder **/ (root)**, then Save.
+### SQL / Excel projects
 
-4. **Wait ~1 minute**, then visit the URL Pages shows you. Done. Every push to
-   `main` republishes automatically.
+These usually don't need an embed — give the project page a write-up and link
+the repo/file. You can drop the `.embed-frame` section entirely and keep just
+the prose + action buttons.
 
-### Custom domain (optional)
+## Colors & fonts
 
-If you buy a domain (e.g. `chuch.dev`):
+Everything is driven by CSS variables at the top of `styles.css` under
+`:root`, mirroring your Python palette (`jacaranda`, `gold`, `olive`,
+`charcoal`, `off_white` at shades 100–500). Change a hex there and it updates
+site-wide. Fonts load from Google Fonts (Inter, DM Sans, JetBrains Mono).
 
-1. In **Settings → Pages → Custom domain**, enter your domain and Save. This
-   creates a `CNAME` file in the repo.
-2. At your domain registrar, add DNS records:
-   - Four `A` records pointing to GitHub's IPs: `185.199.108.153`,
-     `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-   - For a `www` subdomain, a `CNAME` record pointing to `<username>.github.io`
-3. Back in Pages, tick **Enforce HTTPS** once the certificate is issued.
+## Deploying (GitHub Pages)
+
+Your repo `smallchuch.github.io` is already set to deploy from `main` / root.
+Just commit and push these files to the root of that repo:
+
+```bash
+git add .
+git commit -m "New portfolio site"
+git push
+```
+
+The site publishes at **https://smallchuch.github.io** within ~1 minute of each
+push. Optionally add an empty `.nojekyll` file at the root to tell GitHub Pages
+to serve the files as-is (no Jekyll processing).
+
+### A note on placeholders
+
+Search the files for `smallchuch`, `chuchdeveloper@proton.me`, "Chuch", and the
+LinkedIn `href="https://www.linkedin.com/"` and swap in your real name, GitHub
+handle, email, and profile links.
 
 ## Local preview
 
-Just open `index.html` in a browser, or serve the folder:
-
 ```bash
 python -m http.server 8000
-# then open http://localhost:8000
+# open http://localhost:8000
 ```

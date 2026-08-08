@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#7A5C9E" />
+  <title>Credit Risk EDA — Chuch</title>
+  <meta name="description" content="Exploratory data analysis on a lending dataset — default drivers and feature signal for a probability-of-default model." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <!-- two levels up to the shared stylesheet -->
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+<body>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="../../index.html" class="brand">Chuch <span class="brand-sub">Credit Risk · Data</span></a>
+      <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../../projects.html" class="active">Projects</a>
+        <a href="../../index.html#about">About</a>
+        <a href="../../cv.pdf">CV</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- PROJECT HEADER -->
+  <section class="proj-header">
+    <div class="wrap">
+      <p class="crumb"><a href="../../projects.html">← Projects</a> / Credit Risk EDA</p>
+      <span class="tag tag-quarto">Quarto · Notebook</span>
+      <h1>Credit Risk Modelling — Exploratory Data Analysis</h1>
+      <p class="proj-desc">
+        A deep-dive EDA on a lending dataset: default drivers, feature
+        distributions, missingness, and the early signal that shapes a
+        probability-of-default model. Presented below as a Quarto reveal.js deck.
+        Replace this text with your own summary.
+      </p>
+      <div class="stack">
+        <span>Python</span><span>pandas</span><span>seaborn</span><span>scikit-learn</span><span>Quarto</span>
+      </div>
+      <div class="proj-actions">
+        <a class="btn btn-primary" href="presentation.html" target="_blank" rel="noopener">Open presentation fullscreen ↗</a>
+        <a class="btn btn-ghost" href="https://github.com/smallchuch/credit-risk-eda" target="_blank" rel="noopener">Source code ↗</a>
+        <a class="btn btn-ghost" href="https://github.com/smallchuch/credit-risk-eda/blob/main/notebook.ipynb" target="_blank" rel="noopener">Notebook ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMBEDDED QUARTO PRESENTATION -->
+  <section class="section" style="padding-top:1rem;">
+    <div class="wrap">
+      <div class="embed-frame">
+        <!-- Render your Quarto deck to HTML and save it as presentation.html
+             in THIS folder. It will appear here automatically. -->
+        <iframe src="presentation.html" title="Credit Risk EDA presentation" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <p class="embed-note">
+        Presentation embedded from <code>presentation.html</code>. Use the arrow keys
+        (or the on-slide controls) to navigate; press <strong>F</strong> for fullscreen.
+      </p>
+    </div>
+  </section>
+
+  <!-- WRITE-UP -->
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <div class="prose">
+        <h2>Overview</h2>
+        <p>
+          A short paragraph on the dataset, the question, and why it matters.
+          What are you trying to predict, and what would a good model change?
+        </p>
+
+        <h2>What I did</h2>
+        <ul>
+          <li>Profiled the data — distributions, missingness, and outliers.</li>
+          <li>Explored default rates across key credit characteristics.</li>
+          <li>Assessed correlations and candidate features for a PD model.</li>
+        </ul>
+
+        <h2>Key findings</h2>
+        <p>
+          Pull out two or three headline takeaways here — the charts a reader
+          should remember. Link back to specific slides in the deck above.
+        </p>
+
+        <h2>Links</h2>
+        <ul>
+          <li><a href="https://github.com/smallchuch/credit-risk-eda" target="_blank" rel="noopener">Source repository</a></li>
+          <li><a href="https://github.com/smallchuch/credit-risk-eda/blob/main/notebook.ipynb" target="_blank" rel="noopener">Jupyter notebook</a></li>
+          <li><a href="presentation.html" target="_blank" rel="noopener">Presentation (fullscreen)</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="foot-brand">Chuch</div>
+        <p class="foot-blurb">Credit risk & data analytics. Open to conversations about modelling, analysis, and BI.</p>
+      </div>
+      <div>
+        <h4>Pages</h4>
+        <a href="../../index.html">Home</a>
+        <a href="../../projects.html">Projects</a>
+        <a href="../../index.html#about">About</a>
+        <a href="../../cv.pdf">CV</a>
+      </div>
+      <div>
+        <h4>Elsewhere</h4>
+        <a href="https://github.com/smallchuch" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="mailto:chuchdeveloper@proton.me">Email</a>
+      </div>
+    </div>
+    <div class="footer-bottom">© <span id="year"></span> Chuch · Hand-built with HTML &amp; CSS · GitHub Pages</div>
+  </footer>
+
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
