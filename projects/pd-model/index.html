@@ -13,55 +13,50 @@
   <link rel="stylesheet" href="../../styles.css" />
 
   <!-- =====================================================================
-       Page-scoped styles for the stacked section selector.
+       Page-scoped styles for the section selector.
        Uses the shared design tokens from styles.css (jacaranda / gold / olive).
        ===================================================================== -->
   <style>
-    /* Two columns: the stacked section rail on the left, the deck on the right.
-       Collapses to a single column on narrow screens (rail above the deck). */
-    .deck-layout {
+    /* ---- Stage tabs: a row above the deck (title + description per tab) ---- */
+    .deck-tabs {
       display: grid;
-      grid-template-columns: minmax(280px, 360px) 1fr;
-      gap: clamp(1.2rem, 3vw, 2rem);
-      align-items: start;
+      grid-template-columns: repeat(4, 1fr);
+      gap: .7rem;
+      margin-bottom: 1.4rem;
     }
-    @media (max-width: 860px) {
-      .deck-layout { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 900px) { .deck-tabs { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 540px) { .deck-tabs { grid-template-columns: 1fr; } }
 
-    /* ---- Stacked section tabs (one row each: title + description) ---- */
-    .deck-tabs { display: flex; flex-direction: column; gap: .7rem; }
     .deck-tab {
-      display: block; width: 100%; text-align: left; cursor: pointer;
+      display: flex; flex-direction: column; width: 100%; text-align: left; cursor: pointer;
       font-family: var(--font-body); color: var(--text-primary);
       background: var(--bg-surface); border: 1px solid var(--border-subtle);
-      border-left: 3px solid transparent;
-      border-radius: 10px; padding: .95rem 1.1rem;
+      border-top: 3px solid transparent;
+      border-radius: 10px; padding: .9rem 1rem;
       transition: border-color .18s ease, box-shadow .2s ease, transform .15s ease, background .2s ease;
     }
     .deck-tab:hover { border-color: var(--jac-200); box-shadow: var(--shadow-sm); transform: translateY(-1px); }
     .deck-tab.active {
-      border-color: var(--jac-300); border-left-color: var(--jac-300);
+      border-color: var(--jac-300); border-top-color: var(--jac-300);
       background: var(--bg-primary-light); box-shadow: var(--shadow-sm);
     }
-    .deck-tab .t-top { display: flex; align-items: center; gap: .6rem; margin-bottom: .3rem; }
+    .deck-tab .t-top { display: flex; align-items: center; gap: .5rem; margin-bottom: .35rem; }
     .deck-tab .t-stage {
-      font-family: var(--font-mono); font-size: .68rem; font-weight: 500;
+      font-family: var(--font-mono); font-size: .66rem; font-weight: 500;
       color: var(--text-inverse); background: var(--jac-300);
-      padding: .12rem .45rem; border-radius: 6px; letter-spacing: .03em;
+      padding: .12rem .42rem; border-radius: 6px; letter-spacing: .03em;
     }
-    .deck-tab .t-title { font-family: var(--font-head); font-weight: 600; font-size: 1rem; letter-spacing: -.01em; }
-    .deck-tab .t-desc { color: var(--text-secondary); font-size: .86rem; line-height: 1.45; }
+    .deck-tab .t-title { font-family: var(--font-head); font-weight: 600; font-size: .95rem; letter-spacing: -.01em; line-height: 1.2; }
+    .deck-tab .t-desc { color: var(--text-secondary); font-size: .82rem; line-height: 1.4; }
     .deck-tab .t-soon {
-      font-family: var(--font-mono); font-size: .62rem; text-transform: uppercase; letter-spacing: .08em;
+      font-family: var(--font-mono); font-size: .58rem; text-transform: uppercase; letter-spacing: .07em;
       color: var(--status-watch-text); background: var(--status-watch-bg);
-      padding: .12rem .5rem; border-radius: 999px; margin-left: auto;
+      padding: .1rem .45rem; border-radius: 999px; margin-left: auto; white-space: nowrap;
     }
     .deck-tab[data-ready="false"] .t-stage { background: var(--off-white-400); }
     .deck-tab[data-ready="false"] .t-title { color: var(--text-secondary); }
 
-    /* ---- Deck stage on the right ---- */
-    .deck-stage { min-width: 0; }
+    /* ---- Deck stage head (title + fullscreen link) ---- */
     .deck-stage-head {
       display: flex; align-items: baseline; justify-content: space-between;
       gap: 1rem; flex-wrap: wrap; margin-bottom: .7rem;
@@ -69,7 +64,7 @@
     .deck-stage-head h2 { font-size: 1.25rem; margin: 0; letter-spacing: -.01em; }
     .deck-fs {
       font-family: var(--font-mono); font-size: .78rem; text-decoration: none;
-      color: var(--jac-400); white-space: nowrap;
+      color: var(--jac-400); white-space: nowrap; cursor: pointer;
     }
     .deck-fs:hover { color: var(--jac-300); }
     .deck-fs[hidden] { display: none; }
@@ -97,8 +92,8 @@
       <p class="proj-desc">
         A staged build toward a full probability-of-default (PD) model, extending into
         loss-given-default (LGD) and exposure-at-default (EAD). Each stage is presented as
-        its own executive-summary deck — select a stage on the left to view it in the frame,
-        with the full source on GitHub.
+        its own executive-summary deck — pick a stage below to view it, with the full source
+        on GitHub.
       </p>
       <div class="proj-actions">
         <a class="btn btn-primary" id="repoLink" href="https://github.com/smallchuch/pd_model_project" target="_blank" rel="noopener">Source repository ↗</a>
@@ -107,32 +102,29 @@
     </div>
   </section>
 
-  <!-- STAGE DECKS — stacked selector + in-page frame -->
+  <!-- STAGE DECKS — tabs row above a full-width in-page frame -->
   <section class="section" style="padding-top:1rem;">
-    <div class="wrap">
+    <div class="wrap-wide">
       <p class="section-kicker">Executive summaries by stage</p>
       <h2 style="font-size:1.4rem; margin:.3rem 0 1.4rem;">Stage decks</h2>
 
-      <div class="deck-layout">
-        <!-- Left: stacked section tabs (populated from JS) -->
-        <div class="deck-tabs" id="deckTabs" role="tablist" aria-label="Model stages"></div>
+      <!-- Tabs row (populated from JS) -->
+      <div class="deck-tabs" id="deckTabs" role="tablist" aria-label="Model stages"></div>
 
-        <!-- Right: the deck stage -->
-        <div class="deck-stage">
-          <div class="deck-stage-head">
-            <h2 id="stageTitle">Select a stage</h2>
-            <a class="deck-fs" id="stageFullscreen" href="#" target="_blank" rel="noopener" hidden>Open fullscreen ↗</a>
-          </div>
-
-          <!-- The frame swaps between a live iframe and an "in progress" shell -->
-          <div id="deckFrame" class="embed-frame">
-            <iframe id="deckIframe" src="" title="Stage deck" loading="lazy" allowfullscreen></iframe>
-          </div>
-          <p class="embed-note">
-            Use the arrow keys or the on-slide controls to navigate; press <strong>F</strong> for fullscreen.
-          </p>
-        </div>
+      <!-- Deck stage -->
+      <div class="deck-stage-head">
+        <h2 id="stageTitle">Select a stage</h2>
+        <a class="deck-fs" id="stageFullscreen" href="#" hidden>Open fullscreen ↗</a>
       </div>
+
+      <!-- The frame swaps between a live iframe and an "in progress" shell -->
+      <div id="deckFrame" class="embed-frame">
+        <iframe id="deckIframe" src="" title="Stage deck" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <p class="embed-note">
+        Use the arrow keys or the on-slide controls to navigate; press <strong>F</strong> for fullscreen.
+        <strong>Open fullscreen</strong> opens the deck in a new tab at the slide you're currently on.
+      </p>
     </div>
   </section>
 
@@ -245,13 +237,14 @@
       }
     ];
 
-    const tabsEl   = document.getElementById("deckTabs");
-    const frameEl  = document.getElementById("deckFrame");
-    const iframeEl = document.getElementById("deckIframe");
-    const titleEl  = document.getElementById("stageTitle");
-    const fsEl     = document.getElementById("stageFullscreen");
+    const tabsEl  = document.getElementById("deckTabs");
+    const frameEl = document.getElementById("deckFrame");
+    const titleEl = document.getElementById("stageTitle");
+    const fsEl    = document.getElementById("stageFullscreen");
 
-    // Build the stacked tabs
+    let currentIndex = 0;
+
+    // Build the tabs
     STAGES.forEach((s, i) => {
       const tab = document.createElement("button");
       tab.className = "deck-tab";
@@ -262,15 +255,16 @@
       tab.innerHTML =
         '<div class="t-top">' +
           '<span class="t-stage">' + s.stage + '</span>' +
-          '<span class="t-title">' + s.title + '</span>' +
           (s.ready ? '' : '<span class="t-soon">In progress</span>') +
         '</div>' +
+        '<div class="t-title">' + s.title + '</div>' +
         '<div class="t-desc">' + s.desc + '</div>';
       tab.addEventListener("click", () => select(i));
       tabsEl.appendChild(tab);
     });
 
     function select(i) {
+      currentIndex = i;
       const s = STAGES[i];
 
       // active state
@@ -281,12 +275,11 @@
       titleEl.textContent = s.title;
 
       if (s.ready) {
-        // Live deck: show the iframe, point fullscreen link at the file
+        // Live deck: show the iframe, enable the fullscreen link
         frameEl.classList.remove("is-shell");
         frameEl.innerHTML =
-          '<iframe id="deckIframe" src="' + s.file + '" title="' + s.title +
+          '<iframe src="' + s.file + '" title="' + s.title +
           '" loading="lazy" allowfullscreen></iframe>';
-        fsEl.href = s.file;
         fsEl.hidden = false;
       } else {
         // In-progress: honest holding state, no fullscreen link
@@ -301,6 +294,30 @@
         fsEl.hidden = true;
       }
     }
+
+    // Open fullscreen at the SAME slide the embedded deck is currently on.
+    // The deck is served from the same origin (same folder), so we can read
+    // reveal.js's current position; we fall back gracefully if we can't.
+    fsEl.addEventListener("click", (e) => {
+      e.preventDefault();
+      const s = STAGES[currentIndex];
+      if (!s || !s.ready) return;
+
+      let hash = "";
+      const ifr = frameEl.querySelector("iframe");
+      try {
+        const R = ifr && ifr.contentWindow && ifr.contentWindow.Reveal;
+        if (R && typeof R.getIndices === "function") {
+          const idx = R.getIndices();               // { h, v, f }
+          hash = "#/" + idx.h + (idx.v ? "/" + idx.v : "");
+        } else if (ifr && ifr.contentWindow && ifr.contentWindow.location.hash) {
+          hash = ifr.contentWindow.location.hash;   // fallback: mirror the URL hash
+        }
+      } catch (err) {
+        // cross-origin / local file:// restrictions — just open at the start
+      }
+      window.open(s.file + hash, "_blank", "noopener");
+    });
 
     // Open the first ready stage by default (falls back to the first stage)
     const firstReady = STAGES.findIndex(s => s.ready);
