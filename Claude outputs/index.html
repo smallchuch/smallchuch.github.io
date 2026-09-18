@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#7A5C9E" />
+  <title>Flagship PD Model — Evan Reynolds</title>
+  <meta name="description" content="A staged build toward a full probability-of-default (PD) model on the Home Credit default data — EDA, PD, LGD and EAD, each presented as a reveal.js deck." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <!-- two levels up to the shared stylesheet -->
+  <link rel="stylesheet" href="../../styles.css" />
+
+  <!-- =====================================================================
+       Page-scoped styles for the section selector.
+       Uses the shared design tokens from styles.css (jacaranda / gold / olive).
+       ===================================================================== -->
+  <style>
+    /* ---- Stage tabs: a row above the deck (title + description per tab) ---- */
+    .deck-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: .7rem;
+      margin-bottom: 1.4rem;
+    }
+    @media (max-width: 900px) { .deck-tabs { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 540px) { .deck-tabs { grid-template-columns: 1fr; } }
+
+    .deck-tab {
+      display: flex; flex-direction: column; width: 100%; text-align: left; cursor: pointer;
+      font-family: var(--font-body); color: var(--text-primary);
+      background: var(--bg-surface); border: 1px solid var(--border-subtle);
+      border-top: 3px solid transparent;
+      border-radius: 10px; padding: .9rem 1rem;
+      transition: border-color .18s ease, box-shadow .2s ease, transform .15s ease, background .2s ease;
+    }
+    .deck-tab:hover { border-color: var(--jac-200); box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+    .deck-tab.active {
+      border-color: var(--jac-300); border-top-color: var(--jac-300);
+      background: var(--bg-primary-light); box-shadow: var(--shadow-sm);
+    }
+    .deck-tab .t-top { display: flex; align-items: center; gap: .5rem; margin-bottom: .35rem; }
+    .deck-tab .t-stage {
+      font-family: var(--font-mono); font-size: .66rem; font-weight: 500;
+      color: var(--text-inverse); background: var(--jac-300);
+      padding: .12rem .42rem; border-radius: 6px; letter-spacing: .03em;
+    }
+    .deck-tab .t-title { font-family: var(--font-head); font-weight: 600; font-size: .95rem; letter-spacing: -.01em; line-height: 1.2; }
+    .deck-tab .t-desc { color: var(--text-secondary); font-size: .82rem; line-height: 1.4; }
+    .deck-tab .t-soon {
+      font-family: var(--font-mono); font-size: .58rem; text-transform: uppercase; letter-spacing: .07em;
+      color: var(--status-watch-text); background: var(--status-watch-bg);
+      padding: .1rem .45rem; border-radius: 999px; margin-left: auto; white-space: nowrap;
+    }
+    .deck-tab[data-ready="false"] .t-stage { background: var(--off-white-400); }
+    .deck-tab[data-ready="false"] .t-title { color: var(--text-secondary); }
+
+    /* ---- Deck stage head (title + fullscreen link) ---- */
+    .deck-stage-head {
+      display: flex; align-items: baseline; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap; margin-bottom: .7rem;
+    }
+    .deck-stage-head h2 { font-size: 1.25rem; margin: 0; letter-spacing: -.01em; }
+    .deck-fs {
+      font-family: var(--font-mono); font-size: .78rem; text-decoration: none;
+      color: var(--jac-400); white-space: nowrap; cursor: pointer;
+    }
+    .deck-fs:hover { color: var(--jac-300); }
+    .deck-fs[hidden] { display: none; }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="../../index.html" class="brand">Evan Reynolds <span class="brand-sub">Credit · Analytics</span></a>
+      <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../../projects.html" class="active">Projects</a>
+        <a href="../../cv.pdf">CV</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- PROJECT HEADER -->
+  <section class="proj-header">
+    <div class="wrap">
+      <p class="crumb"><a href="../../projects.html">← Projects</a> / Flagship PD Model</p>
+      <span class="tag tag-quarto">Staged modelling build · Python / Quarto</span>
+      <h1>Flagship PD Model — Home Credit default data</h1>
+      <p class="proj-desc">
+        A staged build toward a full probability-of-default (PD) model, extending into
+        loss-given-default (LGD) and exposure-at-default (EAD). Each stage is presented as
+        its own executive-summary deck — pick a stage below to view it, with the full source
+        on GitHub.
+      </p>
+      <div class="proj-actions">
+        <a class="btn btn-primary" id="repoLink" href="https://github.com/smallchuch/pd_model_project" target="_blank" rel="noopener">Source repository ↗</a>
+        <a class="btn btn-ghost" href="https://github.com/smallchuch" target="_blank" rel="noopener">All repos ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAGE DECKS — tabs row above a full-width in-page frame -->
+  <section class="section" style="padding-top:1rem;">
+    <div class="wrap-wide">
+      <p class="section-kicker">Executive summaries by stage</p>
+      <h2 style="font-size:1.4rem; margin:.3rem 0 1.4rem;">Stage decks</h2>
+
+      <!-- Tabs row (populated from JS) -->
+      <div class="deck-tabs" id="deckTabs" role="tablist" aria-label="Model stages"></div>
+
+      <!-- Deck stage -->
+      <div class="deck-stage-head">
+        <h2 id="stageTitle">Select a stage</h2>
+        <a class="deck-fs" id="stageFullscreen" href="#" hidden>Open fullscreen ↗</a>
+      </div>
+
+      <!-- The frame swaps between a live iframe and an "in progress" shell -->
+      <div id="deckFrame" class="embed-frame">
+        <iframe id="deckIframe" src="" title="Stage deck" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <p class="embed-note">
+        Use the arrow keys or the on-slide controls to navigate; press <strong>F</strong> for fullscreen.
+        <strong>Open fullscreen</strong> opens the deck in a new tab at the slide you're currently on.
+      </p>
+    </div>
+  </section>
+
+  <!-- WRITE-UP -->
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <div class="prose">
+        <h2>Overview</h2>
+        <p>
+          This is a staged build of a credit-risk model on the Home Credit default dataset.
+          Rather than jumping straight to a model, each phase is done deliberately and
+          published as its own executive summary, so the reasoning behind every modelling
+          choice is visible and auditable — the same standard a lending or risk function
+          would expect.
+        </p>
+
+        <h2>The stages</h2>
+        <ul>
+          <li><strong>Default-rate driver scan (EDA)</strong> — profiling the data, surfacing the
+            credit characteristics that drive default, and building leakage-safe feature signal.</li>
+          <li><strong>Probability of default (PD)</strong> — modelling the likelihood that a borrower defaults.</li>
+          <li><strong>Loss given default (LGD)</strong> — estimating how much is lost when a default occurs.</li>
+          <li><strong>Exposure at default (EAD)</strong> — estimating the outstanding exposure at the point of default.</li>
+        </ul>
+
+        <h2>Guarding against leakage</h2>
+        <p>
+          A large part of the groundwork went into avoiding the two mistakes that quietly inflate
+          model performance: <em>train/test contamination</em> — letting information from the test
+          set influence training decisions — and <em>target leakage</em> through default-rate
+          encoding, where encoding a category by its observed default rate hands the model a peek
+          at the outcome it is meant to predict. Both were identified and handled so every stage is
+          evaluated honestly.
+        </p>
+
+        <h2>Links</h2>
+        <ul>
+          <li><a href="https://github.com/smallchuch/pd_model_project" target="_blank" rel="noopener">Project repository</a> — the full source for this build.</li>
+          <li><a href="https://github.com/smallchuch" target="_blank" rel="noopener">All repositories</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="foot-brand">Evan Reynolds</div>
+        <p class="foot-blurb">Mortgage lending &amp; credit administration, moving into credit analytics, policy and governance.</p>
+      </div>
+      <div>
+        <h4>Pages</h4>
+        <a href="../../index.html">Home</a>
+        <a href="../../projects.html">Projects</a>
+        <a href="../../cv.pdf">CV</a>
+      </div>
+      <div>
+        <h4>Elsewhere</h4>
+        <a href="https://github.com/smallchuch" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="https://www.linkedin.com/in/evan-reynolds-007b83183/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="mailto:evanrlreynolds@proton.me">Email</a>
+      </div>
+    </div>
+    <div class="footer-bottom">© <span id="year"></span> Evan Reynolds · Hand-built with HTML &amp; CSS · GitHub Pages</div>
+  </footer>
+
+  <!-- =====================================================================
+       Section selector logic.
+       TO ADD A STAGE: render its deck to a self-contained file in THIS folder
+       (quarto render deck.qmd --to revealjs --embed-resources), then set the
+       matching entry's `ready: true`. That's the only change needed.
+       ===================================================================== -->
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // ---- The stages. Edit this list to add/rename stages. ----
+    const STAGES = [
+      {
+        id: "eda",
+        stage: "01",
+        title: "Default-rate driver scan (EDA)",
+        desc: "Exploratory analysis: default drivers, leakage-safe features, and the groundwork for the PD model.",
+        file: "eda.html",
+        ready: true
+      },
+      {
+        id: "pd",
+        stage: "02",
+        title: "Probability of default (PD)",
+        desc: "Modelling the likelihood that a borrower defaults.",
+        file: "pd.html",
+        ready: false
+      },
+      {
+        id: "lgd",
+        stage: "03",
+        title: "Loss given default (LGD)",
+        desc: "Estimating how much is lost when a default occurs.",
+        file: "lgd.html",
+        ready: false
+      },
+      {
+        id: "ead",
+        stage: "04",
+        title: "Exposure at default (EAD)",
+        desc: "Estimating the outstanding exposure at the point of default.",
+        file: "ead.html",
+        ready: false
+      }
+    ];
+
+    const tabsEl  = document.getElementById("deckTabs");
+    const frameEl = document.getElementById("deckFrame");
+    const titleEl = document.getElementById("stageTitle");
+    const fsEl    = document.getElementById("stageFullscreen");
+
+    let currentIndex = 0;
+
+    // Build the tabs
+    STAGES.forEach((s, i) => {
+      const tab = document.createElement("button");
+      tab.className = "deck-tab";
+      tab.type = "button";
+      tab.setAttribute("role", "tab");
+      tab.dataset.ready = s.ready;
+      tab.dataset.index = i;
+      tab.innerHTML =
+        '<div class="t-top">' +
+          '<span class="t-stage">' + s.stage + '</span>' +
+          (s.ready ? '' : '<span class="t-soon">In progress</span>') +
+        '</div>' +
+        '<div class="t-title">' + s.title + '</div>' +
+        '<div class="t-desc">' + s.desc + '</div>';
+      tab.addEventListener("click", () => select(i));
+      tabsEl.appendChild(tab);
+    });
+
+    function select(i) {
+      currentIndex = i;
+      const s = STAGES[i];
+
+      // active state
+      [...tabsEl.children].forEach((el, j) =>
+        el.classList.toggle("active", j === i)
+      );
+
+      titleEl.textContent = s.title;
+
+      if (s.ready) {
+        // Live deck: show the iframe, enable the fullscreen link
+        frameEl.classList.remove("is-shell");
+        frameEl.innerHTML =
+          '<iframe src="' + s.file + '" title="' + s.title +
+          '" loading="lazy" allowfullscreen></iframe>';
+        fsEl.hidden = false;
+      } else {
+        // In-progress: honest holding state, no fullscreen link
+        frameEl.classList.add("is-shell");
+        frameEl.innerHTML =
+          '<div class="embed-shell-msg">' +
+            '<p class="kick">Stage ' + s.stage + '</p>' +
+            '<h3>' + s.title + '</h3>' +
+            '<p>This stage is in progress — its deck will appear here once it’s ' +
+            'rendered and added to the project.</p>' +
+          '</div>';
+        fsEl.hidden = true;
+      }
+    }
+
+    // Open fullscreen at the SAME slide the embedded deck is currently on.
+    // The deck is served from the same origin (same folder), so we can read
+    // reveal.js's current position; we fall back gracefully if we can't.
+    fsEl.addEventListener("click", (e) => {
+      e.preventDefault();
+      const s = STAGES[currentIndex];
+      if (!s || !s.ready) return;
+
+      let hash = "";
+      const ifr = frameEl.querySelector("iframe");
+      try {
+        const R = ifr && ifr.contentWindow && ifr.contentWindow.Reveal;
+        if (R && typeof R.getIndices === "function") {
+          const idx = R.getIndices();               // { h, v, f }
+          hash = "#/" + idx.h + (idx.v ? "/" + idx.v : "");
+        } else if (ifr && ifr.contentWindow && ifr.contentWindow.location.hash) {
+          hash = ifr.contentWindow.location.hash;   // fallback: mirror the URL hash
+        }
+      } catch (err) {
+        // cross-origin / local file:// restrictions — just open at the start
+      }
+      window.open(s.file + hash, "_blank", "noopener");
+    });
+
+    // Open the first ready stage by default (falls back to the first stage)
+    const firstReady = STAGES.findIndex(s => s.ready);
+    select(firstReady === -1 ? 0 : firstReady);
+  </script>
+</body>
+</html>
