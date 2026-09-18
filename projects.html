@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#7A5C9E" />
   <title>Projects — Evan Reynolds</title>
-  <meta name="description" content="Projects by Evan Reynolds — credit risk EDA and modelling, presented as Quarto decks with source on GitHub." />
+  <meta name="description"
+    content="Projects by Evan Reynolds — credit risk EDA and modelling, presented as Quarto decks with source on GitHub." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
   <!-- NAV -->
   <header class="nav">
@@ -53,8 +58,10 @@
             deck, selectable in-page, with careful handling of data leakage throughout.
           </p>
           <ul class="p-points">
-            <li>Default-rate driver scan (EDA) — profiled the data and surfaced the credit characteristics that drive default.</li>
-            <li>Guarded against data leakage — train/test contamination and target leakage from default-rate encoding.</li>
+            <li>Default-rate driver scan (EDA) — profiled the data and surfaced the credit characteristics that drive
+              default.</li>
+            <li>Guarded against data leakage — train/test contamination and target leakage from default-rate encoding.
+            </li>
             <li>Staged toward PD, then LGD and EAD — each phase reasoned through and published as its own deck.</li>
           </ul>
           <div class="stack">
@@ -62,17 +69,33 @@
           </div>
           <div class="p-cta">
             <a class="btn btn-primary" href="projects/pd-model/index.html">Open project &rarr;</a>
-            <a class="btn btn-ghost" href="https://github.com/smallchuch/pd_model_project" target="_blank" rel="noopener">Source ↗</a>
+            <a class="btn btn-ghost" href="https://github.com/smallchuch/pd_model_project" target="_blank"
+              rel="noopener">Source ↗</a>
           </div>
         </div>
         <aside class="p-rail">
           <p class="rail-kick">At a glance</p>
           <dl>
-            <div><dt>Dataset</dt><dd>Home Credit default risk</dd></div>
-            <div><dt>Focus</dt><dd>Default drivers &amp; leakage-safe features</dd></div>
-            <div><dt>Toolchain</dt><dd>Python · pandas · scikit-learn</dd></div>
-            <div><dt>Deliverable</dt><dd>Stage decks: EDA → PD → LGD → EAD</dd></div>
-            <div><dt>Status</dt><dd>EDA complete · PD in progress</dd></div>
+            <div>
+              <dt>Dataset</dt>
+              <dd>Home Credit default risk</dd>
+            </div>
+            <div>
+              <dt>Focus</dt>
+              <dd>Default drivers &amp; leakage-safe features</dd>
+            </div>
+            <div>
+              <dt>Toolchain</dt>
+              <dd>Python · pandas · scikit-learn</dd>
+            </div>
+            <div>
+              <dt>Deliverable</dt>
+              <dd>Stage decks: EDA → PD → LGD → EAD</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd>EDA complete · PD in progress</dd>
+            </div>
           </dl>
         </aside>
       </article>
@@ -85,7 +108,8 @@
     <div class="footer-inner">
       <div>
         <div class="foot-brand">Evan Reynolds</div>
-        <p class="foot-blurb">Mortgage lending &amp; credit administration, moving into credit analytics, policy and governance.</p>
+        <p class="foot-blurb">Mortgage lending &amp; credit administration, moving into credit analytics, policy and
+          governance.</p>
       </div>
       <div>
         <h4>Pages</h4>
@@ -100,9 +124,11 @@
         <a href="mailto:evanrlreynolds@proton.me">Email</a>
       </div>
     </div>
-    <div class="footer-bottom">© <span id="year"></span> Evan Reynolds · Hand-built with HTML &amp; CSS · GitHub Pages</div>
+    <div class="footer-bottom">© <span id="year"></span> Evan Reynolds · Hand-built with HTML &amp; CSS · GitHub Pages
+    </div>
   </footer>
 
   <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
+
 </html>
