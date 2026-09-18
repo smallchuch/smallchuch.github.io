@@ -26,6 +26,9 @@ projects/
     presentation.html
 ```
 
+> **Multi-stage projects** (one project, several decks you can switch between)
+> use a slightly different layout — see **The Flagship PD Model page** below.
+
 ## Adding a Quarto presentation
 
 ### 1. Render the deck to a single self-contained file
@@ -87,6 +90,73 @@ git push
 Wait for the green check in the repo's **Actions** tab, then hard-refresh the
 live page with **Ctrl+F5** (browsers cache aggressively).
 
+## The Flagship PD Model page (multi-stage, section selector)
+
+`projects/pd-model/` is a **multi-stage** project: one page that holds several
+decks — EDA, PD, LGD, EAD — with a **stacked-tab selector** down the left. Click
+a stage and its deck loads into the frame on the right. Stages that aren't
+rendered yet show an "in progress" holding state instead of a broken frame.
+
+```
+projects/pd-model/
+  index.html    # the flagship page + selector logic (STAGES list)
+  eda.html      # stage 01 deck  (self-contained render of 01_eda.qmd)
+  pd.html       # stage 02 deck  (add when ready)
+  lgd.html      # stage 03 deck  (add when ready)
+  ead.html      # stage 04 deck  (add when ready)
+```
+
+### Rendering the EDA deck (do this first)
+
+Your source deck lives outside this repo, e.g.:
+
+```
+C:\Dev\CreditRiskLearning\Projects\Flagship PD Model Project\01_Default_Rate_Driver_Scan_EDA\deck\01_eda.qmd
+```
+
+Render it self-contained, then copy the output into the repo as `eda.html`:
+
+```bash
+# from the deck folder
+quarto render 01_eda.qmd --to revealjs --embed-resources
+
+# copy the result over the placeholder (PowerShell)
+copy 01_eda.html "C:\Dev\smallchuch.github.io\projects\pd-model\eda.html" -Force
+```
+
+That's it — the flagship page's **01 · Default-rate driver scan (EDA)** tab
+already points at `eda.html`, so the deck appears the moment the file is there.
+
+### Adding a later stage (PD, LGD, EAD, …)
+
+Two small steps:
+
+1. **Render and drop in the file.** Render that stage's deck with
+   `--embed-resources` and save it into `projects/pd-model/` as the filename the
+   selector expects (`pd.html`, `lgd.html`, `ead.html`).
+2. **Flip the flag.** Open `projects/pd-model/index.html`, find the `STAGES`
+   list near the bottom, and change that stage's `ready: false` to
+   `ready: true`. The "in progress" pill disappears and the deck goes live.
+
+### Adding a brand-new stage that isn't in the list
+
+Add an object to the `STAGES` list in `projects/pd-model/index.html`:
+
+```js
+{
+  id: "scorecard",
+  stage: "05",
+  title: "Scorecard & calibration",
+  desc: "Turning PD estimates into a scaled, calibrated scorecard.",
+  file: "scorecard.html",
+  ready: true            // false until you've dropped in scorecard.html
+}
+```
+
+Each row shows the `stage` number, the `title`, and the one-line `desc`. Nothing
+else to touch — the tabs, the frame, and the fullscreen link are all driven off
+that list.
+
 ## Adding a Power BI dashboard
 
 Same as above, but instead of a Quarto file:
@@ -117,7 +187,9 @@ section from that page's `index.html` and keep just the prose and buttons.
 
 - [ ] Deck rendered with `--embed-resources`
 - [ ] New folder under `projects/` with `index.html` + `presentation.html`
+      (or, for the flagship page, the `<stage>.html` file dropped into `pd-model/`)
 - [ ] Write-up page edited (title, description, tags, buttons, prose)
+- [ ] Multi-stage: matching stage set to `ready: true` in the `STAGES` list
 - [ ] Card added on `projects.html` with correct `href` and `data-type`
 - [ ] Committed, pushed, Actions green, hard-refreshed
 

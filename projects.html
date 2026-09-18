@@ -41,27 +41,28 @@
   <main class="work" style="padding-top:1rem;">
     <div class="wrap-wide">
 
-      <!-- Credit Risk EDA -->
+      <!-- Flagship PD Model -->
       <article class="project-panel">
         <div class="p-body">
-          <p class="p-flag">Exploratory analysis · Python / Quarto</p>
-          <h3>Credit Risk EDA — Home Credit default data</h3>
+          <p class="p-flag">Staged modelling build · Python / Quarto</p>
+          <h3>Flagship PD Model — Home Credit default data</h3>
           <p class="p-desc">
-            An exploratory analysis of the Home Credit default dataset to surface the
-            credit characteristics that drive loan default and shape a downstream
-            probability-of-default model, with careful handling of data leakage.
+            A staged build toward a full probability-of-default (PD) model on the Home
+            Credit default dataset, extending into loss-given-default (LGD) and
+            exposure-at-default (EAD). Each stage is published as its own executive-summary
+            deck, selectable in-page, with careful handling of data leakage throughout.
           </p>
           <ul class="p-points">
+            <li>Default-rate driver scan (EDA) — profiled the data and surfaced the credit characteristics that drive default.</li>
             <li>Guarded against data leakage — train/test contamination and target leakage from default-rate encoding.</li>
-            <li>Cleaned and shaped raw data — datetime processing, duplicate removal, and a structured missingness assessment.</li>
-            <li>Explored default rates across key credit characteristics to guide feature selection for a PD model.</li>
+            <li>Staged toward PD, then LGD and EAD — each phase reasoned through and published as its own deck.</li>
           </ul>
           <div class="stack">
             <span>Python</span><span>pandas</span><span>seaborn</span><span>scikit-learn</span><span>Quarto</span>
           </div>
           <div class="p-cta">
-            <a class="btn btn-primary" href="projects/credit-risk-eda/index.html">Open project &rarr;</a>
-            <a class="btn btn-ghost" href="https://github.com/smallchuch" target="_blank" rel="noopener">Source ↗</a>
+            <a class="btn btn-primary" href="projects/pd-model/index.html">Open project &rarr;</a>
+            <a class="btn btn-ghost" href="https://github.com/smallchuch/pd_model_project" target="_blank" rel="noopener">Source ↗</a>
           </div>
         </div>
         <aside class="p-rail">
@@ -70,8 +71,8 @@
             <div><dt>Dataset</dt><dd>Home Credit default risk</dd></div>
             <div><dt>Focus</dt><dd>Default drivers &amp; leakage-safe features</dd></div>
             <div><dt>Toolchain</dt><dd>Python · pandas · scikit-learn</dd></div>
-            <div><dt>Deliverable</dt><dd>Quarto / reveal.js deck + notebook</dd></div>
-            <div><dt>Leads to</dt><dd>PD / LGD / EAD model</dd></div>
+            <div><dt>Deliverable</dt><dd>Stage decks: EDA → PD → LGD → EAD</dd></div>
+            <div><dt>Status</dt><dd>EDA complete · PD in progress</dd></div>
           </dl>
         </aside>
       </article>
