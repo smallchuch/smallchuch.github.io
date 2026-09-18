@@ -5,9 +5,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#7A5C9E" />
-  <title>Chuch — Credit Risk & Data Analytics</title>
+  <title>Evan Reynolds — Credit &amp; Analytics · Mortgages + Personal Lending</title>
   <meta name="description"
-    content="Portfolio of Chuch — credit risk modelling, exploratory data analysis, and business intelligence, built in Python, SQL, Power BI and Quarto." />
+    content="Evan Reynolds — mortgage lending administration, building the technical skills for credit analytics, policy and governance. Selected data work in Python, SQL and BI." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -20,166 +20,86 @@
   <!-- NAV -->
   <header class="nav">
     <div class="nav-inner">
-      <a href="index.html" class="brand">Evan Reynolds <span class="brand-sub">Credit Risk · Data</span></a>
+      <a href="index.html" class="brand">Evan Reynolds <span class="brand-sub">Credit · Analytics</span></a>
       <nav class="nav-links">
         <a href="index.html" class="active">Home</a>
         <a href="projects.html">Projects</a>
-        <a href="#about">About</a>
         <a href="cv.pdf">CV</a>
       </nav>
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="wrap">
+  <!-- LEAD / ABOUT (top of page) -->
+  <section class="lead-block">
+    <div class="wrap-wide">
       <div class="hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow">Credit Risk · EDA · Business Intelligence</p>
-          <h1>Hi, I'm <span class="accent">Evan</span>.<br />I model credit risk and turn data into decisions.</h1>
+          <p class="eyebrow">Mortgage &amp; personal lending &rarr; credit analytics</p>
+          <h1>Process and customer profiling now.<br /><span class="accent">Credit analytics, policy &amp; governance</span> next.</h1>
           <p class="lead">
-            I build credit risk models and dig into data with Python, then ship the
-            findings as clear notebooks, Quarto presentations, and dashboards people
-            can actually use. A selection of my work is below.
+            I work in mortgage and personal lending administration, with a strong sense of
+            process and customer profiling — and I'm building the technical skills to move
+            into credit analytics, policy and governance. Below is the work I'm doing to get there.
           </p>
-          <div class="stats">
-            <div class="stat">
-              <div class="num">Python</div>
-              <div class="lbl">pandas · scikit-learn</div>
-            </div>
-            <div class="stat">
-              <div class="num">SQL &amp; BI</div>
-              <div class="lbl">Power BI · Excel</div>
-            </div>
-            <div class="stat">
-              <div class="num">Credit Risk</div>
-              <div class="lbl">PD · EDA · modelling</div>
-            </div>
-          </div>
+          <span class="now">Currently upskilling in Python, credit-risk modelling &amp; BI</span>
           <div class="cta">
-            <a class="btn btn-primary" href="projects.html">See the work &rarr;</a>
-            <a class="btn btn-ghost" href="#about">About me</a>
+            <a class="btn btn-primary" href="#work">See the work &darr;</a>
+            <a class="btn btn-ghost" href="cv.pdf">Download CV</a>
           </div>
         </div>
         <div class="hero-photo">
-          <!-- Add your photo at img/headshot.jpg (a square crop looks best).
-               Until the file exists, the placeholder below shows instead. -->
-          <img class="headshot" src="image\headshot.jpg" alt="Evan"
+          <img class="headshot" src="image/headshot.jpg" alt="Evan Reynolds"
             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-          <div class="headshot-ph">Add your headshot<br />(img/headshot.jpg)</div>
+          <div class="headshot-ph">Add your headshot<br />(image/headshot.jpg)</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FEATURED -->
-  <section class="section">
-    <div class="wrap">
-      <div class="featured">
-        <div>
-          <p class="flag">Featured · in progress</p>
-          <h3>Credit Risk Modelling — Exploratory Data Analysis</h3>
-          <p>
-            A deep-dive EDA on a lending dataset: default drivers, feature
-            distributions, missingness, and early signal for a PD model — all in
-            my own brand design system. Presented as a Quarto deck with the full
-            notebook and source on GitHub.
+  <!-- WORK — full-width project panels (real work only) -->
+  <section class="work" id="work">
+    <div class="wrap-wide">
+      <div class="work-head">
+        <p class="section-kicker">Selected work</p>
+        <h2>Projects</h2>
+      </div>
+
+      <!-- Credit Risk EDA -->
+      <article class="project-panel">
+        <div class="p-body">
+          <p class="p-flag">Exploratory analysis · Python / Quarto</p>
+          <h3>Credit Risk EDA — Home Credit default data</h3>
+          <p class="p-desc">
+            An exploratory analysis of the Home Credit default dataset to surface the
+            credit characteristics that drive loan default and shape a downstream
+            probability-of-default model. The focus is on clean, defensible groundwork:
+            profiling the data, guarding against leakage, and finding real feature signal.
           </p>
+          <ul class="p-points">
+            <li>Guarded against data leakage — train/test contamination and target leakage from default-rate encoding.</li>
+            <li>Cleaned and shaped raw data — datetime processing, duplicate removal, and a structured missingness assessment.</li>
+            <li>Explored default rates across key credit characteristics to guide feature selection for a PD model.</li>
+          </ul>
           <div class="stack">
             <span>Python</span><span>pandas</span><span>seaborn</span><span>scikit-learn</span><span>Quarto</span>
           </div>
-          <div class="card-cta">
+          <div class="p-cta">
             <a class="btn btn-primary" href="projects/credit-risk-eda/index.html">Open project &rarr;</a>
-            <a class="btn btn-ghost" href="projects.html">All projects</a>
+            <a class="btn btn-ghost" href="https://github.com/smallchuch" target="_blank" rel="noopener">Source ↗</a>
           </div>
         </div>
-        <div class="featured-media">
-          <!-- Drop a screenshot at img/credit-risk-eda.png and swap the div below for the img -->
-          <span>Add a chart screenshot here<br />(img/credit-risk-eda.png)</span>
-          <!-- <img src="img/credit-risk-eda.png" alt="Credit risk EDA preview" /> -->
-        </div>
-      </div>
-    </div>
-  </section>
+        <aside class="p-rail">
+          <p class="rail-kick">At a glance</p>
+          <dl>
+            <div><dt>Dataset</dt><dd>Home Credit default risk</dd></div>
+            <div><dt>Focus</dt><dd>Default drivers &amp; leakage-safe features</dd></div>
+            <div><dt>Toolchain</dt><dd>Python · pandas · scikit-learn</dd></div>
+            <div><dt>Deliverable</dt><dd>Quarto / reveal.js deck + notebook</dd></div>
+            <div><dt>Leads to</dt><dd>PD / LGD / EAD model</dd></div>
+          </dl>
+        </aside>
+      </article>
 
-  <!-- SELECTED WORK PREVIEW -->
-  <section class="section">
-    <div class="wrap">
-      <div class="section-head-row">
-        <div>
-          <p class="section-kicker">01 — Selected work</p>
-          <h2>A taste of the projects</h2>
-        </div>
-        <a class="btn btn-ghost" href="projects.html">View all &rarr;</a>
-      </div>
-      <div class="grid" style="margin-top:1.4rem;">
-        <a class="card" href="projects/credit-risk-eda/index.html">
-          <div class="card-top"><span class="tag tag-quarto">Quarto · Notebook</span><span class="idx">01</span></div>
-          <h4>Credit Risk EDA</h4>
-          <p>Default drivers and feature signal across a lending dataset, with the full notebook on GitHub.</p>
-          <span class="arrow">Open &rarr;</span>
-        </a>
-        <a class="card" href="projects.html">
-          <div class="card-top"><span class="tag tag-powerbi">Power BI</span><span class="idx">02</span></div>
-          <h4>Portfolio Risk Dashboard</h4>
-          <p>A live dashboard segmenting a loan book by risk band. Coming soon.</p>
-          <span class="arrow">See projects &rarr;</span>
-        </a>
-        <a class="card" href="projects.html">
-          <div class="card-top"><span class="tag tag-sql">SQL</span><span class="idx">03</span></div>
-          <h4>SQL Analysis</h4>
-          <p>Query-driven analysis over a relational schema. Coming soon.</p>
-          <span class="arrow">See projects &rarr;</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- WHAT I WORK ON -->
-  <section class="section">
-    <div class="wrap">
-      <p class="section-kicker">02 — What I work on</p>
-      <h2>From raw data to a decision</h2>
-      <p class="section-intro">The problems I enjoy solving.</p>
-      <div class="skills-grid">
-        <div class="skill-card">
-          <h4>Credit Risk Modelling</h4>
-          <p>Probability-of-default modelling, scorecards, and the EDA that finds the signal behind loan performance.
-          </p>
-        </div>
-        <div class="skill-card">
-          <h4>Exploratory Analysis</h4>
-          <p>Python EDA in pandas and seaborn — distributions, missingness, correlations, and clear visual storytelling.
-          </p>
-        </div>
-        <div class="skill-card">
-          <h4>Business Intelligence</h4>
-          <p>Power BI dashboards and Excel models that make the numbers legible for the people making the call.</p>
-        </div>
-        <div class="skill-card">
-          <h4>SQL &amp; Data Wrangling</h4>
-          <p>Pulling, joining, and shaping data from relational sources into analysis-ready tables.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section class="section" id="about">
-    <div class="wrap">
-      <p class="section-kicker">03 — About me</p>
-      <h2>About</h2>
-      <p class="section-intro" style="max-width:720px;">
-        Write a couple of paragraphs here: your background, that you're currently
-        focused on credit risk modelling and building out this portfolio, and
-        what you're looking for. Keep it human — this is what people read after a
-        project has caught their eye. Replace the placeholder name and links
-        throughout with your real details.
-      </p>
-      <div class="cta">
-        <a class="btn btn-primary" href="cv.pdf">Download CV</a>
-        <a class="btn btn-ghost" href="mailto:chuchdeveloper@proton.me">Email me</a>
-      </div>
     </div>
   </section>
 
@@ -187,14 +107,13 @@
   <footer class="footer">
     <div class="footer-inner">
       <div>
-        <div class="foot-brand">Chuch</div>
-        <p class="foot-blurb">Credit risk & data analytics. Open to conversations about modelling, analysis, and BI.</p>
+        <div class="foot-brand">Evan Reynolds</div>
+        <p class="foot-blurb">Mortgage lending &amp; credit administration, moving into credit analytics, policy and governance. Open to conversations about credit risk and analytics roles.</p>
       </div>
       <div>
         <h4>Pages</h4>
         <a href="index.html">Home</a>
         <a href="projects.html">Projects</a>
-        <a href="#about">About</a>
         <a href="cv.pdf">CV</a>
       </div>
       <div>
@@ -204,7 +123,7 @@
         <a href="mailto:evanrlreynolds@proton.me">Email</a>
       </div>
     </div>
-    <div class="footer-bottom">© <span id="year"></span> Chuch · Hand-built with HTML &amp; CSS · GitHub Pages</div>
+    <div class="footer-bottom">© <span id="year"></span> Evan Reynolds · Hand-built with HTML &amp; CSS · GitHub Pages</div>
   </footer>
 
   <script>document.getElementById("year").textContent = new Date().getFullYear();</script>

@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#7A5C9E" />
-  <title>Projects — Chuch</title>
-  <meta name="description" content="Projects by Chuch — credit risk EDA, Quarto presentations, Power BI dashboards, SQL and Excel work." />
+  <title>Projects — Evan Reynolds</title>
+  <meta name="description" content="Projects by Evan Reynolds — credit risk EDA and modelling, presented as Quarto decks with source on GitHub." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -15,124 +15,66 @@
   <!-- NAV -->
   <header class="nav">
     <div class="nav-inner">
-      <a href="index.html" class="brand">Chuch <span class="brand-sub">Credit Risk · Data</span></a>
+      <a href="index.html" class="brand">Evan Reynolds <span class="brand-sub">Credit · Analytics</span></a>
       <nav class="nav-links">
         <a href="index.html">Home</a>
         <a href="projects.html" class="active">Projects</a>
-        <a href="index.html#about">About</a>
         <a href="cv.pdf">CV</a>
       </nav>
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="wrap">
+  <!-- INTRO -->
+  <section class="lead-block" style="padding-bottom:1rem;">
+    <div class="wrap-wide">
       <p class="eyebrow">Projects</p>
-      <h1>Data projects, prototype to polished</h1>
+      <h1 style="font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:.9rem;">The work</h1>
       <p class="lead">
-        Credit risk EDA and modelling, presented as Quarto decks, alongside
-        Power BI dashboards, SQL, and Excel work. Each project links out to its
-        source code and notebook in a dedicated repo.
+        Hands-on credit-risk and data work, each project presented as an executive
+        summary with the source and notebook on GitHub. This grows as I complete each
+        stage of the modelling build.
       </p>
     </div>
   </section>
 
-  <!-- FILTERS + PROJECTS -->
-  <main class="section" style="padding-top:0;">
-    <div class="wrap">
+  <!-- WORK — full-width project panels (real work only) -->
+  <main class="work" style="padding-top:1rem;">
+    <div class="wrap-wide">
 
-      <div class="filters" role="tablist">
-        <button class="chip active" data-filter="all">All <span class="count" data-count="all"></span></button>
-        <button class="chip" data-filter="notebook">Notebooks <span class="count" data-count="notebook"></span></button>
-        <button class="chip" data-filter="quarto">Presentations <span class="count" data-count="quarto"></span></button>
-        <button class="chip" data-filter="powerbi">Dashboards <span class="count" data-count="powerbi"></span></button>
-        <button class="chip" data-filter="sql">SQL <span class="count" data-count="sql"></span></button>
-        <button class="chip" data-filter="excel">Excel <span class="count" data-count="excel"></span></button>
-      </div>
-
-      <!-- FEATURED -->
-      <div class="featured" data-type="quarto">
-        <div>
-          <p class="flag">Featured · in progress</p>
-          <h3>Credit Risk Modelling — Exploratory Data Analysis</h3>
-          <p>
-            Default drivers, feature distributions, missingness, and early signal
-            for a PD model on a lending dataset. Rendered as a Quarto reveal.js
-            deck, with the full Jupyter notebook and source on GitHub.
+      <!-- Credit Risk EDA -->
+      <article class="project-panel">
+        <div class="p-body">
+          <p class="p-flag">Exploratory analysis · Python / Quarto</p>
+          <h3>Credit Risk EDA — Home Credit default data</h3>
+          <p class="p-desc">
+            An exploratory analysis of the Home Credit default dataset to surface the
+            credit characteristics that drive loan default and shape a downstream
+            probability-of-default model, with careful handling of data leakage.
           </p>
-          <div class="stack"><span>Python</span><span>pandas</span><span>seaborn</span><span>scikit-learn</span><span>Quarto</span></div>
-          <div class="card-cta">
+          <ul class="p-points">
+            <li>Guarded against data leakage — train/test contamination and target leakage from default-rate encoding.</li>
+            <li>Cleaned and shaped raw data — datetime processing, duplicate removal, and a structured missingness assessment.</li>
+            <li>Explored default rates across key credit characteristics to guide feature selection for a PD model.</li>
+          </ul>
+          <div class="stack">
+            <span>Python</span><span>pandas</span><span>seaborn</span><span>scikit-learn</span><span>Quarto</span>
+          </div>
+          <div class="p-cta">
             <a class="btn btn-primary" href="projects/credit-risk-eda/index.html">Open project &rarr;</a>
             <a class="btn btn-ghost" href="https://github.com/smallchuch" target="_blank" rel="noopener">Source ↗</a>
           </div>
         </div>
-        <div class="featured-media">
-          <span>Add a chart screenshot here<br />(img/credit-risk-eda.png)</span>
-        </div>
-      </div>
-
-      <!-- ===== Category: Notebooks & Presentations ===== -->
-      <div class="cat-group" data-cat="analysis">
-        <h3>Analysis &amp; Presentations</h3>
-        <p class="cat-desc">Python EDA and modelling, written up as notebooks and Quarto decks.</p>
-        <div class="grid">
-
-          <a class="card" href="projects/credit-risk-eda/index.html" data-type="quarto">
-            <div class="card-top"><span class="tag tag-quarto">Quarto · Notebook</span><span class="idx">01</span></div>
-            <h4>Credit Risk EDA</h4>
-            <p>Exploratory analysis surfacing the credit characteristics tied to loan default, ahead of a PD model.</p>
-            <div class="stack"><span>pandas</span><span>seaborn</span></div>
-            <div class="metrics">
-              <div class="metric"><div class="m-num">EDA</div><div class="m-lbl">Default drivers</div></div>
-              <div class="metric"><div class="m-num">Quarto</div><div class="m-lbl">reveal.js deck</div></div>
-            </div>
-            <span class="arrow">Open &rarr;</span>
-          </a>
-
-          <a class="card" href="#" data-type="notebook" data-placeholder>
-            <div class="card-top"><span class="tag tag-notebook">Jupyter Notebook</span><span class="idx">02</span></div>
-            <h4>Notebook project title</h4>
-            <p>Copy this card for each notebook project. Set data-type to notebook / quarto / powerbi / sql / excel.</p>
-            <span class="arrow">Coming soon</span>
-          </a>
-
-        </div>
-      </div>
-
-      <!-- ===== Category: Dashboards ===== -->
-      <div class="cat-group" data-cat="dashboards">
-        <h3>Dashboards</h3>
-        <p class="cat-desc">Live Power BI reports and interactive views.</p>
-        <div class="grid">
-          <a class="card" href="#" data-type="powerbi" data-placeholder>
-            <div class="card-top"><span class="tag tag-powerbi">Power BI</span><span class="idx">03</span></div>
-            <h4>Portfolio Risk Dashboard</h4>
-            <p>Segment a loan book by risk band and track default rates. Embed the published report on its project page.</p>
-            <span class="arrow">Coming soon</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- ===== Category: SQL & Excel ===== -->
-      <div class="cat-group" data-cat="data">
-        <h3>SQL &amp; Excel</h3>
-        <p class="cat-desc">Query-driven analysis and spreadsheet models.</p>
-        <div class="grid">
-          <a class="card" href="#" data-type="sql" data-placeholder>
-            <div class="card-top"><span class="tag tag-sql">SQL</span><span class="idx">04</span></div>
-            <h4>SQL analysis title</h4>
-            <p>The question, the schema, and the queries. Link the repo or a short writeup.</p>
-            <span class="arrow">Coming soon</span>
-          </a>
-          <a class="card" href="#" data-type="excel" data-placeholder>
-            <div class="card-top"><span class="tag tag-excel">Excel</span><span class="idx">05</span></div>
-            <h4>Excel model title</h4>
-            <p>A financial model or analysis. Describe the inputs, logic, and output, and link the workbook.</p>
-            <span class="arrow">Coming soon</span>
-          </a>
-        </div>
-      </div>
+        <aside class="p-rail">
+          <p class="rail-kick">At a glance</p>
+          <dl>
+            <div><dt>Dataset</dt><dd>Home Credit default risk</dd></div>
+            <div><dt>Focus</dt><dd>Default drivers &amp; leakage-safe features</dd></div>
+            <div><dt>Toolchain</dt><dd>Python · pandas · scikit-learn</dd></div>
+            <div><dt>Deliverable</dt><dd>Quarto / reveal.js deck + notebook</dd></div>
+            <div><dt>Leads to</dt><dd>PD / LGD / EAD model</dd></div>
+          </dl>
+        </aside>
+      </article>
 
     </div>
   </main>
@@ -141,58 +83,25 @@
   <footer class="footer">
     <div class="footer-inner">
       <div>
-        <div class="foot-brand">Chuch</div>
-        <p class="foot-blurb">Credit risk & data analytics. Open to conversations about modelling, analysis, and BI.</p>
+        <div class="foot-brand">Evan Reynolds</div>
+        <p class="foot-blurb">Mortgage lending &amp; credit administration, moving into credit analytics, policy and governance.</p>
       </div>
       <div>
         <h4>Pages</h4>
         <a href="index.html">Home</a>
         <a href="projects.html">Projects</a>
-        <a href="index.html#about">About</a>
         <a href="cv.pdf">CV</a>
       </div>
       <div>
         <h4>Elsewhere</h4>
         <a href="https://github.com/smallchuch" target="_blank" rel="noopener">GitHub ↗</a>
-        <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn ↗</a>
-        <a href="mailto:chuchdeveloper@proton.me">Email</a>
+        <a href="https://www.linkedin.com/in/evan-reynolds-007b83183/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="mailto:evanrlreynolds@proton.me">Email</a>
       </div>
     </div>
-    <div class="footer-bottom">© <span id="year"></span> Chuch · Hand-built with HTML &amp; CSS · GitHub Pages</div>
+    <div class="footer-bottom">© <span id="year"></span> Evan Reynolds · Hand-built with HTML &amp; CSS · GitHub Pages</div>
   </footer>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Count projects per type (counts every card + featured with a data-type)
-    const items = document.querySelectorAll("[data-type]");
-    const counts = { all: 0, notebook: 0, quarto: 0, powerbi: 0, sql: 0, excel: 0 };
-    items.forEach((el) => { counts.all++; const t = el.dataset.type; if (t in counts) counts[t]++; });
-    document.querySelectorAll(".count").forEach((c) => { c.textContent = counts[c.dataset.count] ?? 0; });
-
-    // Filtering — hides non-matching cards and empty category groups
-    const chips = document.querySelectorAll(".chip");
-    chips.forEach((chip) => {
-      chip.addEventListener("click", () => {
-        chips.forEach((c) => c.classList.remove("active"));
-        chip.classList.add("active");
-        const f = chip.dataset.filter;
-        items.forEach((el) => {
-          const show = f === "all" || el.dataset.type === f;
-          el.style.display = show ? "" : "none";
-        });
-        // hide a category group if all its cards are hidden
-        document.querySelectorAll(".cat-group").forEach((grp) => {
-          const visible = [...grp.querySelectorAll("[data-type]")].some((el) => el.style.display !== "none");
-          grp.style.display = visible ? "" : "none";
-        });
-      });
-    });
-
-    // Placeholder cards don't navigate yet
-    document.querySelectorAll("[data-placeholder]").forEach((a) =>
-      a.addEventListener("click", (e) => e.preventDefault())
-    );
-  </script>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
 </html>

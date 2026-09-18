@@ -298,3 +298,84 @@ a { color: var(--text-link); }
 @media (max-width: 480px) {
   .footer-inner { grid-template-columns: 1fr; }
 }
+
+/* ==========================================================================
+   Full-width project panels (home + projects index)
+   Added for the grounded, no-placeholder redesign
+   ========================================================================== */
+.wrap-wide { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.2rem, 5vw, 2.5rem); }
+
+/* Lead / about block at the top of the home page */
+.lead-block { padding: clamp(2.6rem, 7vw, 4.5rem) 0 clamp(1.5rem, 4vw, 2.4rem); }
+.lead-block .now {
+  font-family: var(--font-mono); font-size: .8rem; color: var(--text-secondary);
+  margin-top: 1.4rem; display: inline-flex; align-items: center; gap: .5rem;
+}
+.lead-block .now::before {
+  content: ""; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--olive-300); box-shadow: 0 0 0 3px var(--olive-100);
+}
+
+/* Section that holds the stacked project panels */
+.work { padding: clamp(1rem, 3vw, 2rem) 0 clamp(2.5rem, 6vw, 4rem); }
+.work-head { margin-bottom: 1.6rem; }
+
+/* A single project = one full-width panel */
+.project-panel {
+  display: grid; grid-template-columns: 1.55fr .95fr; gap: clamp(1.4rem, 4vw, 3rem);
+  background: var(--bg-surface); border: 1px solid var(--border-subtle);
+  border-radius: var(--radius); padding: clamp(1.5rem, 4vw, 2.6rem);
+  box-shadow: var(--shadow-sm); margin-bottom: 1.6rem;
+  transition: box-shadow .25s ease, border-color .25s ease, transform .2s ease;
+}
+.project-panel:hover { box-shadow: var(--shadow-md); border-color: var(--jac-200); }
+
+.project-panel .p-flag {
+  font-family: var(--font-mono); font-size: .72rem; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--gold-400); margin-bottom: .7rem;
+}
+.project-panel h3 { font-size: clamp(1.35rem, 2.6vw, 1.9rem); margin-bottom: .7rem; letter-spacing: -.01em; }
+.project-panel .p-desc { color: var(--text-secondary); margin-bottom: 1.1rem; max-width: 60ch; }
+
+/* Approach highlights — real bullets, not filler */
+.p-points { list-style: none; margin: 0 0 1.2rem; padding: 0; }
+.p-points li {
+  position: relative; padding-left: 1.4rem; margin-bottom: .55rem;
+  color: var(--text-secondary); font-size: .95rem;
+}
+.p-points li::before {
+  content: ""; position: absolute; left: 0; top: .55em;
+  width: 7px; height: 7px; border-radius: 2px; background: var(--jac-300);
+}
+
+.project-panel .p-cta { display: flex; gap: .7rem; flex-wrap: wrap; margin-top: 1.2rem; }
+
+/* Right rail — an "at a glance" summary in place of a screenshot */
+.p-rail {
+  align-self: start; border-radius: 10px; padding: 1.3rem 1.4rem;
+  background: linear-gradient(155deg, var(--jac-100), var(--gold-100));
+  border: 1px solid var(--border-subtle);
+}
+.p-rail .rail-kick {
+  font-family: var(--font-mono); font-size: .68rem; text-transform: uppercase;
+  letter-spacing: .12em; color: var(--jac-400); margin-bottom: .9rem;
+}
+.p-rail dl { display: grid; grid-template-columns: 1fr; gap: .8rem; margin: 0; }
+.p-rail dt { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .04em; text-transform: uppercase; color: var(--olive-400); }
+.p-rail dd { margin: .15rem 0 0; color: var(--charcoal-300); font-size: .92rem; font-weight: 500; }
+
+@media (max-width: 780px) {
+  .project-panel { grid-template-columns: 1fr; }
+  .p-rail { order: -1; }
+}
+
+/* Presentation embed — honest holding state on the project page */
+.embed-frame.is-shell {
+  display: flex; align-items: center; justify-content: center;
+  padding-top: 0; min-height: clamp(240px, 40vw, 420px);
+  background: linear-gradient(135deg, var(--off-white-200), var(--jac-100));
+}
+.embed-shell-msg { text-align: center; max-width: 420px; padding: 1.5rem; }
+.embed-shell-msg .kick { font-family: var(--font-mono); font-size: .72rem; text-transform: uppercase; letter-spacing: .12em; color: var(--gold-400); margin-bottom: .6rem; }
+.embed-shell-msg h3 { color: var(--jac-400); font-size: 1.2rem; margin-bottom: .5rem; }
+.embed-shell-msg p { color: var(--text-secondary); font-size: .9rem; }
