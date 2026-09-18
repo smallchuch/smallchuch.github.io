@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#7A5C9E" />
+  <title>Evan Reynolds — Credit &amp; Analytics · Mortgages + Personal Lending</title>
+  <meta name="description"
+    content="Evan Reynolds — mortgage lending administration, building the technical skills for credit analytics, policy and governance. Selected data work in Python, SQL and BI." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">Evan Reynolds <span class="brand-sub">Credit · Analytics</span></a>
+      <nav class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="cv.pdf">CV</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- LEAD / ABOUT (top of page) -->
+  <section class="lead-block">
+    <div class="wrap-wide">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Mortgage &amp; personal lending &rarr; credit analytics</p>
+          <h1>Process and customer profiling now.<br /><span class="accent">Credit analytics, policy &amp; governance</span> next.</h1>
+          <p class="lead">
+            I work in mortgage and personal lending administration, with a strong sense of
+            process and customer profiling — and I'm building the technical skills to move
+            into credit analytics, policy and governance. Below is the work I'm doing to get there.
+          </p>
+          <span class="now">Currently upskilling in Python, credit-risk modelling &amp; BI</span>
+          <div class="cta">
+            <a class="btn btn-primary" href="#work">See the work &darr;</a>
+            <a class="btn btn-ghost" href="cv.pdf">Download CV</a>
+          </div>
+        </div>
+        <div class="hero-photo">
+          <img class="headshot" src="image/headshot.jpg" alt="Evan Reynolds"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="headshot-ph">Add your headshot<br />(image/headshot.jpg)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK — teaser that points to the Projects page (the single source of truth) -->
+  <section class="work" id="work">
+    <div class="wrap-wide">
+      <div class="work-head section-head-row">
+        <div>
+          <p class="section-kicker">Selected work</p>
+          <h2>Projects</h2>
+        </div>
+        <a class="btn btn-ghost" href="projects.html">View all projects &rarr;</a>
+      </div>
+
+      <!-- Flagship PD Model — links to the Projects page, not a deep page -->
+      <article class="project-panel">
+        <div class="p-body">
+          <p class="p-flag">Staged modelling build · Python / Quarto</p>
+          <h3>Flagship PD Model — Home Credit default data</h3>
+          <p class="p-desc">
+            A staged build toward a full probability-of-default (PD) model on the Home
+            Credit default dataset, extending into loss-given-default (LGD) and
+            exposure-at-default (EAD). Each stage is published as its own executive-summary
+            deck, with clean, defensible groundwork and careful handling of data leakage.
+          </p>
+          <ul class="p-points">
+            <li>Default-rate driver scan (EDA) — profiled the data and surfaced the credit characteristics that drive default.</li>
+            <li>Guarded against data leakage — train/test contamination and target leakage from default-rate encoding.</li>
+            <li>Staged toward PD, then LGD and EAD — each phase reasoned through and published as its own deck.</li>
+          </ul>
+          <div class="stack">
+            <span>Python</span><span>pandas</span><span>seaborn</span><span>scikit-learn</span><span>Quarto</span>
+          </div>
+          <div class="p-cta">
+            <a class="btn btn-primary" href="projects.html">View in Projects &rarr;</a>
+            <a class="btn btn-ghost" href="https://github.com/smallchuch/pd_model_project" target="_blank" rel="noopener">Source ↗</a>
+          </div>
+        </div>
+        <aside class="p-rail">
+          <p class="rail-kick">At a glance</p>
+          <dl>
+            <div><dt>Dataset</dt><dd>Home Credit default risk</dd></div>
+            <div><dt>Focus</dt><dd>Default drivers &amp; leakage-safe features</dd></div>
+            <div><dt>Toolchain</dt><dd>Python · pandas · scikit-learn</dd></div>
+            <div><dt>Deliverable</dt><dd>Stage decks: EDA → PD → LGD → EAD</dd></div>
+            <div><dt>Status</dt><dd>EDA complete · PD in progress</dd></div>
+          </dl>
+        </aside>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="foot-brand">Evan Reynolds</div>
+        <p class="foot-blurb">Mortgage lending &amp; credit administration, moving into credit analytics, policy and governance. Open to conversations about credit risk and analytics roles.</p>
+      </div>
+      <div>
+        <h4>Pages</h4>
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="cv.pdf">CV</a>
+      </div>
+      <div>
+        <h4>Elsewhere</h4>
+        <a href="https://github.com/smallchuch" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="https://www.linkedin.com/in/evan-reynolds-007b83183/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="mailto:evanrlreynolds@proton.me">Email</a>
+      </div>
+    </div>
+    <div class="footer-bottom">© <span id="year"></span> Evan Reynolds · Hand-built with HTML &amp; CSS · GitHub Pages</div>
+  </footer>
+
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+
+</html>
