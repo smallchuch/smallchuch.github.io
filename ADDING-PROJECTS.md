@@ -79,7 +79,24 @@ So people can find it, open `projects.html` and copy one of the existing
 - set `data-type` to one of: `notebook`, `quarto`, `powerbi`, `sql`, `excel`
   (this drives the filter tabs and their counts)
 
-### 6. Commit, push, refresh
+### 6. Add a row on the home page
+
+The home page lists projects as compact rows (number · what it is · status ·
+links), not full panels. In `index.html`, copy an `<article class="proj-row">`
+block inside `.proj-rows`, bump the number, and set:
+
+- the one-line `row-what` and the `row-meta` toolchain
+- the status pill: `row-status is-live` or `row-status is-soon`
+- **Presentation →** pointing at the project folder's `index.html`
+- **Code ↗** pointing at the repo. No repo yet? Use
+  `<span class="row-link is-off">Code ↗</span>` instead of an `<a>`.
+
+**Vintage Analysis** (`projects/vintage-analysis/`) is set up as a "coming soon"
+page. To go live, drop the rendered deck in as `presentation.html`, then in that
+page's script set `DECK_READY = true` and paste the repo URL into `REPO_URL`.
+Update the home row's status pill and Code link to match.
+
+### 7. Commit, push, refresh
 
 ```bash
 git add .
@@ -190,7 +207,8 @@ section from that page's `index.html` and keep just the prose and buttons.
       (or, for the flagship page, the `<stage>.html` file dropped into `pd-model/`)
 - [ ] Write-up page edited (title, description, tags, buttons, prose)
 - [ ] Multi-stage: matching stage set to `ready: true` in the `STAGES` list
-- [ ] Card added on `projects.html` with correct `href` and `data-type`
+- [ ] Panel added on `projects.html`
+- [ ] Row added on the home page (`index.html`)
 - [ ] Committed, pushed, Actions green, hard-refreshed
 
 ## The one recurring gotcha

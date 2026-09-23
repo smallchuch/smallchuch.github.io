@@ -379,3 +379,78 @@ a { color: var(--text-link); }
 .embed-shell-msg .kick { font-family: var(--font-mono); font-size: .72rem; text-transform: uppercase; letter-spacing: .12em; color: var(--gold-400); margin-bottom: .6rem; }
 .embed-shell-msg h3 { color: var(--jac-400); font-size: 1.2rem; margin-bottom: .5rem; }
 .embed-shell-msg p { color: var(--text-secondary); font-size: .9rem; }
+
+/* ==========================================================================
+   Compact project rows (home page)
+   One row per project: number · what it is · status · links
+   ========================================================================== */
+.proj-rows {
+  background: var(--bg-surface); border: 1px solid var(--border-subtle);
+  border-radius: var(--radius); box-shadow: var(--shadow-sm); overflow: hidden;
+}
+.proj-row {
+  position: relative;
+  display: grid; grid-template-columns: auto 1fr auto auto;
+  align-items: center; gap: clamp(1rem, 3vw, 2.2rem);
+  padding: clamp(1.1rem, 2.6vw, 1.6rem) clamp(1.2rem, 3vw, 2rem);
+  transition: background .2s ease;
+}
+.proj-row + .proj-row { border-top: 1px solid var(--off-white-400); }
+.proj-row::before {                       /* accent bar that grows on hover */
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  background: linear-gradient(var(--jac-300), var(--gold-300));
+  transform: scaleY(0); transform-origin: top; transition: transform .25s ease;
+}
+.proj-row:hover { background: var(--bg-subtle); }
+.proj-row:hover::before { transform: scaleY(1); }
+
+.row-num {
+  font-family: var(--font-mono); font-weight: 500;
+  font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1;
+  color: var(--jac-200); transition: color .2s ease;
+}
+.proj-row:hover .row-num { color: var(--jac-300); }
+
+.row-main { min-width: 0; }
+.row-main h3 { font-size: clamp(1.1rem, 2.2vw, 1.35rem); letter-spacing: -.01em; margin-bottom: .2rem; }
+.row-main h3 a { color: var(--text-primary); text-decoration: none; }
+.row-main h3 a:hover { color: var(--jac-300); }
+.row-what { color: var(--text-secondary); font-size: .95rem; line-height: 1.4; }
+.row-meta {
+  font-family: var(--font-mono); font-size: .7rem; letter-spacing: .04em;
+  color: var(--text-tertiary); margin-top: .35rem;
+}
+
+.row-status {
+  display: inline-flex; align-items: center; gap: .4rem; white-space: nowrap;
+  font-family: var(--font-mono); font-size: .68rem; text-transform: uppercase; letter-spacing: .07em;
+  padding: .28rem .7rem; border-radius: 999px;
+}
+.row-status::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.row-status.is-live { background: var(--status-safe-bg); color: var(--status-safe-text); }
+.row-status.is-soon { background: var(--status-watch-bg); color: var(--status-watch-text); }
+
+.row-links { display: flex; gap: .5rem; }
+.row-link {
+  display: inline-flex; align-items: center; white-space: nowrap;
+  font-weight: 600; font-size: .86rem; text-decoration: none;
+  padding: .5rem 1rem; border-radius: 999px;
+  color: var(--text-primary); border: 1px solid var(--border-subtle);
+  transition: background .2s ease, color .2s ease, border-color .2s ease, transform .15s ease;
+}
+.row-link:hover { border-color: var(--jac-300); color: var(--jac-300); transform: translateY(-1px); }
+.row-link.is-primary { background: var(--bg-primary); border-color: var(--bg-primary); color: var(--text-inverse); }
+.row-link.is-primary:hover { background: var(--bg-primary-hover); color: var(--text-inverse); }
+.row-link.is-off { color: var(--text-tertiary); border-style: dashed; cursor: not-allowed; }
+.row-link.is-off:hover { transform: none; border-color: var(--border-subtle); color: var(--text-tertiary); }
+
+@media (max-width: 860px) {
+  .proj-row { grid-template-columns: auto 1fr; row-gap: .8rem; }
+  .row-num { grid-row: span 2; align-self: start; padding-top: .15rem; }
+  .row-status { justify-self: start; }
+  .row-links { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .row-links { flex-wrap: wrap; }
+  .row-link { flex: 1; justify-content: center; }
+}

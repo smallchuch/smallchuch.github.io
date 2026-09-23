@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#7A5C9E" />
+  <title>Vintage Analysis — Evan Reynolds</title>
+  <meta name="description" content="Vintage analysis on Lending Club loan data — default curves by origination cohort, presented as a Quarto deck." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <style>
+    .deck-fs { font-family: var(--font-mono); font-size: .78rem; text-decoration: none; color: var(--jac-400); }
+    .deck-fs:hover { color: var(--jac-300); }
+    .deck-fs[hidden] { display: none; }
+    .btn.is-off { opacity: .5; pointer-events: none; border-style: dashed; }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="../../index.html" class="brand">Evan Reynolds <span class="brand-sub">Credit · Analytics</span></a>
+      <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../../projects.html" class="active">Projects</a>
+        <a href="../../cv.pdf">CV</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- PROJECT HEADER -->
+  <section class="proj-header">
+    <div class="wrap">
+      <p class="crumb"><a href="../../projects.html">← Projects</a> / Vintage Analysis</p>
+      <span class="tag tag-quarto">Portfolio analysis · Python / Quarto</span>
+      <h1>Vintage Analysis — Lending Club loans</h1>
+      <p class="proj-desc">
+        Loans grouped by the quarter they were written, with each cohort's defaults tracked
+        month by month. Lining vintages up at the same age shows whether newer books are
+        performing better or worse than older ones.
+      </p>
+      <div class="proj-actions">
+        <a class="btn btn-primary" id="repoLink" href="#" target="_blank" rel="noopener">Source repository ↗</a>
+        <a class="btn btn-ghost" href="https://github.com/smallchuch" target="_blank" rel="noopener">All repos ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DECK -->
+  <section class="section" style="padding-top:1rem;">
+    <div class="wrap-wide">
+      <div class="section-head-row" style="margin-bottom:.7rem;">
+        <h2 style="font-size:1.25rem; margin:0;">Executive summary</h2>
+        <a class="deck-fs" id="deckFullscreen" href="presentation.html" target="_blank" rel="noopener" hidden>Open fullscreen ↗</a>
+      </div>
+      <div id="deckFrame" class="embed-frame"></div>
+    </div>
+  </section>
+
+  <!-- WRITE-UP -->
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <div class="prose">
+        <h2>What a vintage analysis shows</h2>
+        <p>
+          A portfolio's overall default rate mixes old loans with new ones, so it can look
+          healthy while recent lending is getting worse. A vintage analysis separates the
+          book by origination cohort and compares each one at the same months on book,
+          which makes changes in underwriting quality visible early.
+        </p>
+
+        <h2>Plan</h2>
+        <ul>
+          <li><strong>Cohorts</strong> — group loans by origination quarter.</li>
+          <li><strong>Curves</strong> — cumulative default rate by months on book for each cohort.</li>
+          <li><strong>Comparison</strong> — line vintages up at the same age to spot deterioration or improvement.</li>
+          <li><strong>Drill-down</strong> — split curves by grade and term to tie performance back to what was approved.</li>
+        </ul>
+
+        <h2>Data</h2>
+        <p>Lending Club loan data from Kaggle: accepted loans with origination date, grade, term and payment status.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="foot-brand">Evan Reynolds</div>
+        <p class="foot-blurb">Mortgage lending &amp; credit administration, moving into credit analytics, policy and governance.</p>
+      </div>
+      <div>
+        <h4>Pages</h4>
+        <a href="../../index.html">Home</a>
+        <a href="../../projects.html">Projects</a>
+        <a href="../../cv.pdf">CV</a>
+      </div>
+      <div>
+        <h4>Elsewhere</h4>
+        <a href="https://github.com/smallchuch" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="https://www.linkedin.com/in/evan-reynolds-007b83183/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="mailto:evanrlreynolds@proton.me">Email</a>
+      </div>
+    </div>
+    <div class="footer-bottom">© <span id="year"></span> Evan Reynolds · Hand-built with HTML &amp; CSS · GitHub Pages</div>
+  </footer>
+
+  <!-- =====================================================================
+       TO GO LIVE:
+       1. Render the deck self-contained and save it here as presentation.html
+          (quarto render deck.qmd --to revealjs --embed-resources)
+       2. Set DECK_READY = true and paste the GitHub URL into REPO_URL.
+       ===================================================================== -->
+  <script>
+    const DECK_READY = false;
+    const REPO_URL   = "";   // e.g. "https://github.com/smallchuch/vintage_analysis"
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const frame = document.getElementById("deckFrame");
+    if (DECK_READY) {
+      frame.innerHTML = '<iframe src="presentation.html" title="Vintage analysis deck" loading="lazy" allowfullscreen></iframe>';
+      document.getElementById("deckFullscreen").hidden = false;
+    } else {
+      frame.classList.add("is-shell");
+      frame.innerHTML =
+        '<div class="embed-shell-msg">' +
+          '<p class="kick">Coming soon</p>' +
+          '<h3>Vintage Analysis deck</h3>' +
+          '<p>The analysis is underway. The deck will appear here once it’s rendered.</p>' +
+        '</div>';
+    }
+
+    const repo = document.getElementById("repoLink");
+    if (REPO_URL) { repo.href = REPO_URL; }
+    else { repo.classList.add("is-off"); repo.textContent = "Source · coming soon"; }
+  </script>
+</body>
+</html>

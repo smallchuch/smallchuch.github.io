@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -67,40 +67,40 @@
         <a class="btn btn-ghost" href="projects.html">View all projects &rarr;</a>
       </div>
 
-      <article class="project-panel">
-        <div class="p-body">
-          <p class="p-flag">Staged modelling build · Python / Quarto</p>
-          <h3>Flagship PD Model — Home Credit default data</h3>
-          <p class="p-desc">
-            A staged build toward a full probability-of-default (PD) model on the Home
-            Credit default dataset, extending into loss-given-default (LGD) and
-            exposure-at-default (EAD). Each stage is published as its own executive-summary
-            deck, with clean, defensible groundwork and careful handling of data leakage.
-          </p>
-          <ul class="p-points">
-            <li>Default-rate driver scan (EDA) — profiled the data and surfaced the credit characteristics that drive default.</li>
-            <li>Guarded against data leakage — train/test contamination and target leakage from default-rate encoding.</li>
-            <li>Staged toward PD, then LGD and EAD — each phase reasoned through and published as its own deck.</li>
-          </ul>
-          <div class="stack">
-            <span>Python</span><span>pandas</span><span>seaborn</span><span>scikit-learn</span><span>Quarto</span>
+      <!-- Compact project rows. To add one: copy an <article class="proj-row">,
+           bump the number, and point the two links at the deck page and repo.
+           No deck/repo yet? Use <span class="row-link is-off"> instead of <a>. -->
+      <div class="proj-rows">
+
+        <article class="proj-row">
+          <span class="row-num">01</span>
+          <div class="row-main">
+            <h3><a href="projects/pd-model/index.html">Flagship PD Model</a></h3>
+            <p class="row-what">Staged PD &rarr; LGD &rarr; EAD build on Home Credit default data</p>
+            <p class="row-meta">Python · scikit-learn · Quarto</p>
           </div>
-          <div class="p-cta">
-            <a class="btn btn-primary" href="projects.html">View in Projects &rarr;</a>
-            <a class="btn btn-ghost" href="https://github.com/smallchuch/pd_model_project" target="_blank" rel="noopener">Source ↗</a>
+          <span class="row-status is-live">EDA live</span>
+          <div class="row-links">
+            <a class="row-link is-primary" href="projects/pd-model/index.html">Presentation &rarr;</a>
+            <a class="row-link" href="https://github.com/smallchuch/pd_model_project" target="_blank" rel="noopener">Code ↗</a>
           </div>
-        </div>
-        <aside class="p-rail">
-          <p class="rail-kick">At a glance</p>
-          <dl>
-            <div><dt>Dataset</dt><dd>Home Credit default risk</dd></div>
-            <div><dt>Focus</dt><dd>Default drivers &amp; leakage-safe features</dd></div>
-            <div><dt>Toolchain</dt><dd>Python · pandas · scikit-learn</dd></div>
-            <div><dt>Deliverable</dt><dd>Stage decks: EDA → PD → LGD → EAD</dd></div>
-            <div><dt>Status</dt><dd>EDA complete · PD in progress</dd></div>
-          </dl>
-        </aside>
-      </article>
+        </article>
+
+        <article class="proj-row">
+          <span class="row-num">02</span>
+          <div class="row-main">
+            <h3><a href="projects/vintage-analysis/index.html">Vintage Analysis</a></h3>
+            <p class="row-what">Default curves by origination cohort on Lending Club loans</p>
+            <p class="row-meta">Python · pandas · Quarto</p>
+          </div>
+          <span class="row-status is-soon">Coming soon</span>
+          <div class="row-links">
+            <a class="row-link is-primary" href="projects/vintage-analysis/index.html">Presentation &rarr;</a>
+            <span class="row-link is-off" title="Repo coming soon">Code ↗</span>
+          </div>
+        </article>
+
+      </div>
 
     </div>
   </section>
