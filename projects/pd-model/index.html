@@ -46,8 +46,9 @@
       color: var(--text-inverse); background: var(--jac-300);
       padding: .12rem .42rem; border-radius: 6px; letter-spacing: .03em;
     }
-    .deck-tab .t-title { font-family: var(--font-head); font-weight: 600; font-size: .95rem; letter-spacing: -.01em; line-height: 1.2; }
-    .deck-tab .t-desc { color: var(--text-secondary); font-size: .82rem; line-height: 1.4; }
+    .deck-tab .t-title { font-family: var(--font-head); font-weight: 600; font-size: .95rem; letter-spacing: -.01em; line-height: 1.25; margin-bottom: .4rem; }
+    .deck-tab .t-desc { color: var(--text-secondary); font-size: .82rem; line-height: 1.45;
+      display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
     .deck-tab .t-soon {
       font-family: var(--font-mono); font-size: .58rem; text-transform: uppercase; letter-spacing: .07em;
       color: var(--status-watch-text); background: var(--status-watch-bg);
@@ -247,7 +248,7 @@
         id: "eda",
         stage: "01",
         title: "Default-rate driver scan (EDA)",
-        desc: "Exploratory analysis: default drivers, leakage-safe features, and the groundwork for the PD model.",
+        desc: "Exploratory analysis: what drives default, and leakage-safe features for the model.",
         file: "eda.html",
         ready: true
       },
@@ -255,7 +256,7 @@
         id: "pd",
         stage: "02",
         title: "PD model — baseline scorecard",
-        desc: "Logistic regression on WOE-binned features: the champion model, tested for discrimination, sign sense and rank ordering.",
+        desc: "Logistic regression on WOE-binned features — the champion model and its validation.",
         file: "pd.html",
         ready: false
       },
@@ -263,7 +264,7 @@
         id: "challenger",
         stage: "03",
         title: "Challenger model (LightGBM)",
-        desc: "A gradient-boosted challenger benchmarked against the scorecard on Gini, stability and calibration.",
+        desc: "A gradient-boosted model benchmarked against the scorecard on Gini and calibration.",
         file: "challenger.html",
         ready: false
       },
@@ -271,7 +272,7 @@
         id: "recs",
         stage: "04",
         title: "Recommendations",
-        desc: "Turning the model into lending decisions: cut-offs, approval vs bad-rate trade-offs, and monitoring.",
+        desc: "Turning scores into lending decisions: cut-offs, approval vs bad rate, monitoring.",
         file: "recommendations.html",
         ready: false
       }
