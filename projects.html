@@ -52,20 +52,22 @@
           <p class="p-flag">Staged modelling build · Python / Quarto</p>
           <h3>Flagship PD Model — Home Credit default data</h3>
           <p class="p-desc">
-            A staged build toward a full probability-of-default (PD) model on the Home
-            Credit default dataset, extending into loss-given-default (LGD) and
-            exposure-at-default (EAD). Each stage is published as its own executive-summary
-            deck, selectable in-page, with careful handling of data leakage throughout.
+            A staged, end-to-end probability-of-default (PD) model on the Home Credit
+            default dataset — from a default-rate driver scan, to a logistic-regression
+            scorecard, a LightGBM challenger, and business recommendations. Each stage is
+            published as its own executive-summary deck, with careful handling of data
+            leakage throughout, and the champion model runs in a live applicant dashboard.
           </p>
           <ul class="p-points">
             <li>Default-rate driver scan (EDA) — profiled the data and surfaced the credit characteristics that drive
               default.</li>
             <li>Guarded against data leakage — train/test contamination and target leakage from default-rate encoding.
             </li>
-            <li>Staged toward PD, then LGD and EAD — each phase reasoned through and published as its own deck.</li>
+            <li>Baseline scorecard (logistic regression on WOE features) reaches a test Gini of 0.49, then faces a LightGBM challenger.</li>
+            <li>Champion model deployed as an interactive Streamlit dashboard for scoring individual applicants.</li>
           </ul>
           <div class="stack">
-            <span>Python</span><span>pandas</span><span>seaborn</span><span>scikit-learn</span><span>Quarto</span>
+            <span>Python</span><span>pandas</span><span>scikit-learn</span><span>optbinning</span><span>LightGBM</span><span>Streamlit</span><span>Quarto</span>
           </div>
           <div class="p-cta">
             <a class="btn btn-primary" href="projects/pd-model/index.html">Open project &rarr;</a>
@@ -86,15 +88,15 @@
             </div>
             <div>
               <dt>Toolchain</dt>
-              <dd>Python · pandas · scikit-learn</dd>
+              <dd>Python · scikit-learn · LightGBM · Streamlit</dd>
             </div>
             <div>
               <dt>Deliverable</dt>
-              <dd>Stage decks: EDA → PD → LGD → EAD</dd>
+              <dd>Stage decks: EDA → PD scorecard → Challenger → Recommendations · live dashboard</dd>
             </div>
             <div>
               <dt>Status</dt>
-              <dd>EDA complete · PD in progress</dd>
+              <dd>EDA published · PD scorecard built · challenger in progress</dd>
             </div>
           </dl>
         </aside>

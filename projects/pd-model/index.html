@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#7A5C9E" />
   <title>Flagship PD Model — Evan Reynolds</title>
-  <meta name="description" content="A staged build toward a full probability-of-default (PD) model on the Home Credit default data — EDA, PD, LGD and EAD, each presented as a reveal.js deck." />
+  <meta name="description" content="A staged, end-to-end probability-of-default (PD) model on the Home Credit default data — EDA, a logistic-regression scorecard, a LightGBM challenger and business recommendations, plus a live applicant PD dashboard." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -68,6 +68,22 @@
     }
     .deck-fs:hover { color: var(--jac-300); }
     .deck-fs[hidden] { display: none; }
+
+    /* ---- Live app: disabled state until the Streamlit URL is set ---- */
+    .btn.is-off { background: transparent; color: var(--text-tertiary); border: 1px dashed var(--border-subtle);
+                  box-shadow: none; cursor: not-allowed; }
+    .btn.is-off:hover { transform: none; }
+
+    /* ---- Live app callout ---- */
+    .app-callout {
+      display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; flex-wrap: wrap;
+      background: var(--bg-surface); border: 1px solid var(--border-subtle); border-left: 4px solid var(--gold-300);
+      border-radius: 10px; padding: 1.1rem 1.3rem; margin-top: 1.6rem;
+    }
+    .app-callout .kick { font-family: var(--font-mono); font-size: .68rem; text-transform: uppercase;
+                         letter-spacing: .08em; color: var(--text-secondary); margin: 0 0 .25rem; }
+    .app-callout h3 { font-size: 1.05rem; margin: 0 0 .3rem; }
+    .app-callout p.d { color: var(--text-secondary); font-size: .88rem; line-height: 1.45; margin: 0; max-width: 62ch; }
   </style>
 </head>
 <body>
@@ -90,12 +106,14 @@
       <span class="tag tag-quarto">Staged modelling build · Python / Quarto</span>
       <h1>Flagship PD Model — Home Credit default data</h1>
       <p class="proj-desc">
-        A staged build toward a full probability-of-default (PD) model, extending into
-        loss-given-default (LGD) and exposure-at-default (EAD). Each stage is presented as
-        its own executive-summary deck — pick a stage below to view it, with the full source
-        on GitHub.
+        A staged, end-to-end build of a probability-of-default (PD) model: a default-rate
+        driver scan, a logistic-regression scorecard, a LightGBM challenger, and the business
+        recommendations that turn it into lending decisions. Each stage is presented as its
+        own executive-summary deck — pick a stage below to view it — and the champion model
+        is live in an interactive applicant dashboard.
       </p>
       <div class="proj-actions">
+        <a class="btn btn-gold" id="appLink" href="#" target="_blank" rel="noopener">Launch live PD dashboard ↗</a>
         <a class="btn btn-primary" id="repoLink" href="https://github.com/smallchuch/pd_model_project" target="_blank" rel="noopener">Source repository ↗</a>
         <a class="btn btn-ghost" href="https://github.com/smallchuch" target="_blank" rel="noopener">All repos ↗</a>
       </div>
@@ -125,6 +143,21 @@
         Use the arrow keys or the on-slide controls to navigate; press <strong>F</strong> for fullscreen.
         <strong>Open fullscreen</strong> opens the deck in a new tab at the slide you're currently on.
       </p>
+
+      <!-- LIVE APP — Streamlit dashboard (05_Applicant_PD_Dashboard) -->
+      <div class="app-callout">
+        <div>
+          <p class="kick">Live model</p>
+          <h3>Applicant PD dashboard</h3>
+          <p class="d">
+            Enter an applicant's details and score them with the champion scorecard — probability of
+            default, risk grade, and the model's known limitations, side by side with any challenger
+            in the registry. Hosted on Streamlit Community Cloud; if it has been idle it can take
+            30 seconds or so to wake up.
+          </p>
+        </div>
+        <a class="btn btn-gold" id="appLink2" href="#" target="_blank" rel="noopener">Launch dashboard ↗</a>
+      </div>
     </div>
   </section>
 
@@ -143,11 +176,17 @@
 
         <h2>The stages</h2>
         <ul>
-          <li><strong>Default-rate driver scan (EDA)</strong> — profiling the data, surfacing the
-            credit characteristics that drive default, and building leakage-safe feature signal.</li>
-          <li><strong>Probability of default (PD)</strong> — modelling the likelihood that a borrower defaults.</li>
-          <li><strong>Loss given default (LGD)</strong> — estimating how much is lost when a default occurs.</li>
-          <li><strong>Exposure at default (EAD)</strong> — estimating the outstanding exposure at the point of default.</li>
+          <li><strong>01 · Default-rate driver scan (EDA)</strong> — profiling the data, surfacing the
+            credit characteristics that drive default, and building leakage-safe WOE / IV feature signal.</li>
+          <li><strong>02 · PD model — baseline scorecard</strong> — a logistic regression on WOE-binned
+            features, held to success criteria set up front: discrimination, a tight train/test gap,
+            business-sensible coefficient signs and monotonic rank ordering. The baseline reaches a test
+            Gini of 0.49 and KS of 0.36, with a train/test gap under 0.01.</li>
+          <li><strong>03 · Challenger model (LightGBM)</strong> — a gradient-boosted challenger benchmarked
+            against the scorecard on Gini uplift, stability, rank ordering and calibration, to test whether
+            the extra complexity earns its place.</li>
+          <li><strong>04 · Recommendations</strong> — turning the model into lending decisions: cut-off
+            selection, the approval-rate vs bad-rate trade-off, and how the model should be monitored.</li>
         </ul>
 
         <h2>Guarding against leakage</h2>
@@ -162,6 +201,7 @@
 
         <h2>Links</h2>
         <ul>
+          <li><a id="appLink3" href="#" target="_blank" rel="noopener">Live applicant PD dashboard</a> — the champion model, scoring applicants in real time.</li>
           <li><a href="https://github.com/smallchuch/pd_model_project" target="_blank" rel="noopener">Project repository</a> — the full source for this build.</li>
           <li><a href="https://github.com/smallchuch" target="_blank" rel="noopener">All repositories</a></li>
         </ul>
@@ -214,28 +254,48 @@
       {
         id: "pd",
         stage: "02",
-        title: "Probability of default (PD)",
-        desc: "Modelling the likelihood that a borrower defaults.",
+        title: "PD model — baseline scorecard",
+        desc: "Logistic regression on WOE-binned features: the champion model, tested for discrimination, sign sense and rank ordering.",
         file: "pd.html",
         ready: false
       },
       {
-        id: "lgd",
+        id: "challenger",
         stage: "03",
-        title: "Loss given default (LGD)",
-        desc: "Estimating how much is lost when a default occurs.",
-        file: "lgd.html",
+        title: "Challenger model (LightGBM)",
+        desc: "A gradient-boosted challenger benchmarked against the scorecard on Gini, stability and calibration.",
+        file: "challenger.html",
         ready: false
       },
       {
-        id: "ead",
+        id: "recs",
         stage: "04",
-        title: "Exposure at default (EAD)",
-        desc: "Estimating the outstanding exposure at the point of default.",
-        file: "ead.html",
+        title: "Recommendations",
+        desc: "Turning the model into lending decisions: cut-offs, approval vs bad-rate trade-offs, and monitoring.",
+        file: "recommendations.html",
         ready: false
       }
     ];
+
+    // ---- Live Streamlit dashboard. Paste the app's URL here once it's deployed
+    //      (e.g. "https://smallchuch-pd-dashboard.streamlit.app"). While it's empty,
+    //      the launch buttons show a disabled "coming soon" state instead of a dead link.
+    const APP_URL = "";
+
+    ["appLink", "appLink2", "appLink3"].forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (APP_URL) {
+        el.href = APP_URL;
+      } else if (el.classList.contains("btn")) {
+        el.removeAttribute("href");
+        el.classList.add("is-off");
+        el.setAttribute("aria-disabled", "true");
+        el.textContent = "Live dashboard — coming soon";
+      } else {
+        el.closest("li").remove();
+      }
+    });
 
     const tabsEl  = document.getElementById("deckTabs");
     const frameEl = document.getElementById("deckFrame");
