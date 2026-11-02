@@ -1,218 +1,95 @@
-# Adding Projects & Presentations
+# Adding Projects and Presentations
 
-A step-by-step guide for publishing new work to this site. Keep this file in the
-repo as your reference.
+This guide covers publishing new work to the site. Keep it in the repo as a reference.
 
-## The mental model
+## The structure
 
-Every project is a **folder inside `projects/`**. That folder holds two files:
-
-- `index.html` — the project **write-up page**: title, description, tech tags,
-  a short write-up, and buttons linking out to the source repo and notebook.
-- `presentation.html` — your **rendered Quarto deck**, embedded in a responsive
-  16:9 frame on the write-up page.
-
-Your source code and notebooks live in their **own separate GitHub repos**. The
-project page doesn't host them — it just links to them. A working example ships
-at `projects/credit-risk-eda/`.
+Each project is a folder inside `projects/`, containing an `index.html` project page. Some projects also contain one or more presentations (self-contained Quarto renders) that the page embeds.
 
 ```
 projects/
-  credit-risk-eda/
-    index.html          # the write-up page
-    presentation.html   # the rendered Quarto deck (or a Power BI embed)
-  <your-next-project>/
+  pd-model/              # multi-stage project: one page, several presentations
     index.html
-    presentation.html
+    eda.html
+    pd.html
+  vintage-analysis/      # single-page project
+    index.html
 ```
 
-> **Multi-stage projects** (one project, several decks you can switch between)
-> use a slightly different layout — see **The Flagship PD Model page** below.
+## Conventions
+
+Follow the conventions in the README. In short: outcome-first copy, no status badges, the
+standard **View Project →** and **Repository ↗** labels, no em dashes in visible copy, and
+no placeholder controls. If a project has no repo yet, leave out the Repository link.
 
 ## Adding a Quarto presentation
 
-### 1. Render the deck to a single self-contained file
-
-In your project's Quarto folder:
+### 1. Render a self-contained file
 
 ```bash
 quarto render deck.qmd --to revealjs --embed-resources
 ```
 
-`--embed-resources` inlines all the CSS, JS, and images into **one** HTML file,
-so it works as a standalone embed. Without it, Quarto also produces a
-`deck_files/` folder that you'd have to copy alongside the HTML for the deck to
-find its assets.
+`--embed-resources` packs the CSS, JavaScript and images into one HTML file, so the deck works as a single embed.
 
-### 2. Create the project folder
+### 2. Copy it into the project folder
 
-Copy the example folder and rename it:
+Name it for its stage, for example `eda.html`, and copy it into the matching project folder. Use PowerShell from the deck folder:
 
-```
-projects/credit-risk-eda/  ->  projects/loan-default-model/
+```powershell
+copy 01_eda.html "E:\Dev\smallchuch.github.io\projects\pd-model\eda.html" -Force
 ```
 
-### 3. Drop in your deck
+### 3. Link it from the project page
 
-Move your rendered deck into the new folder, renamed to **`presentation.html`**,
-replacing the placeholder file that's already there.
+On a single-deck page, point the embed at the file. On the multi-stage PD page, add the stage to the `STAGES` list in `projects/pd-model/index.html` (see below).
 
-### 4. Edit the write-up page
+## Adding a stage to the PD model page
 
-Open the new folder's `index.html` and update:
-
-- the page `<title>` and the `<h1>` project title
-- the description paragraph and the tech-stack chips
-- the three buttons near the top — **Open presentation fullscreen**,
-  **Source code**, and **Notebook** — pointing at your repos
-- the write-up prose lower down (Overview / What I did / Key findings / Links)
-
-Leave the `../../styles.css`, `../../index.html` etc. links as they are — they
-already point two levels up to the shared files.
-
-### 5. Add a card on the projects page
-
-So people can find it, open `projects.html` and copy one of the existing
-`<a class="card"> ... </a>` blocks into the right category group. Then:
-
-- point its `href` at your new folder, e.g. `projects/loan-default-model/index.html`
-- set `data-type` to one of: `notebook`, `quarto`, `powerbi`, `sql`, `excel`
-  (this drives the filter tabs and their counts)
-
-### 6. Add a row on the home page
-
-The home page lists projects as compact rows (number · what it is · status ·
-links), not full panels. In `index.html`, copy an `<article class="proj-row">`
-block inside `.proj-rows`, bump the number, and set:
-
-- the one-line `row-what` and the `row-meta` toolchain
-- the status pill: `row-status is-live` or `row-status is-soon`
-- **Presentation →** pointing at the project folder's `index.html`
-- **Code ↗** pointing at the repo. No repo yet? Use
-  `<span class="row-link is-off">Code ↗</span>` instead of an `<a>`.
-
-**Vintage Analysis** (`projects/vintage-analysis/`) is set up as a "coming soon"
-page. To go live, drop the rendered deck in as `presentation.html`, then in that
-page's script set `DECK_READY = true` and paste the repo URL into `REPO_URL`.
-Update the home row's status pill and Code link to match.
-
-### 7. Commit, push, refresh
-
-```bash
-git add .
-git commit -m "Add loan default project"
-git push
-```
-
-Wait for the green check in the repo's **Actions** tab, then hard-refresh the
-live page with **Ctrl+F5** (browsers cache aggressively).
-
-## The Flagship PD Model page (multi-stage, section selector)
-
-`projects/pd-model/` is a **multi-stage** project: one page that holds several
-decks — EDA, PD, LGD, EAD — with a **stacked-tab selector** down the left. Click
-a stage and its deck loads into the frame on the right. Stages that aren't
-rendered yet show an "in progress" holding state instead of a broken frame.
-
-```
-projects/pd-model/
-  index.html    # the flagship page + selector logic (STAGES list)
-  eda.html      # stage 01 deck  (self-contained render of 01_eda.qmd)
-  pd.html       # stage 02 deck  (add when ready)
-  lgd.html      # stage 03 deck  (add when ready)
-  ead.html      # stage 04 deck  (add when ready)
-```
-
-### Rendering the EDA deck (do this first)
-
-Your source deck lives outside this repo, e.g.:
-
-```
-C:\Dev\CreditRiskLearning\Projects\Flagship PD Model Project\01_Default_Rate_Driver_Scan_EDA\deck\01_eda.qmd
-```
-
-Render it self-contained, then copy the output into the repo as `eda.html`:
-
-```bash
-# from the deck folder
-quarto render 01_eda.qmd --to revealjs --embed-resources
-
-# copy the result over the placeholder (PowerShell)
-copy 01_eda.html "C:\Dev\smallchuch.github.io\projects\pd-model\eda.html" -Force
-```
-
-That's it — the flagship page's **01 · Default-rate driver scan (EDA)** tab
-already points at `eda.html`, so the deck appears the moment the file is there.
-
-### Adding a later stage (PD, LGD, EAD, …)
-
-Two small steps:
-
-1. **Render and drop in the file.** Render that stage's deck with
-   `--embed-resources` and save it into `projects/pd-model/` as the filename the
-   selector expects (`pd.html`, `lgd.html`, `ead.html`).
-2. **Flip the flag.** Open `projects/pd-model/index.html`, find the `STAGES`
-   list near the bottom, and change that stage's `ready: false` to
-   `ready: true`. The "in progress" pill disappears and the deck goes live.
-
-### Adding a brand-new stage that isn't in the list
-
-Add an object to the `STAGES` list in `projects/pd-model/index.html`:
+Open `projects/pd-model/index.html` and find the `STAGES` list near the bottom of the file. Add an entry for the stage:
 
 ```js
 {
-  id: "scorecard",
+  id: "lgd",
   stage: "05",
-  title: "Scorecard & calibration",
-  desc: "Turning PD estimates into a scaled, calibrated scorecard.",
-  file: "scorecard.html",
-  ready: true            // false until you've dropped in scorecard.html
+  title: "LGD model",
+  desc: "Loss given default estimates and recovery assumptions.",
+  file: "lgd.html",
+  ready: true
 }
 ```
 
-Each row shows the `stage` number, the `title`, and the one-line `desc`. Nothing
-else to touch — the tabs, the frame, and the fullscreen link are all driven off
-that list.
+Add a stage only once its presentation exists in the folder. Don't list stages that aren't rendered yet.
+
+## Adding a project to the site
+
+Add a panel to `projects.html` (copy an existing `<article class="project-panel">`) and point its **View Project →** link at the project's `index.html`. Include **Repository ↗** only if the repo exists.
+
+Add a row to `index.html` (copy an existing `<article class="proj-row">` inside `.proj-rows`). Include the one-line description, the toolchain line, and the same two links. Remove the Repository link if there isn't one.
 
 ## Adding a Power BI dashboard
 
-Same as above, but instead of a Quarto file:
-
-1. In the Power BI service: **File → Embed report → Publish to web (public)**.
+1. In the Power BI service, choose **File → Embed report → Publish to web (public)**.
 2. Copy the `<iframe>` snippet it gives you.
-3. Paste it inside the `.embed-frame` div on the project's `index.html`, in
-   place of the existing Quarto `<iframe>`.
+3. Paste it inside the `.embed-frame` div on the project page, in place of the Quarto iframe.
 
-> ⚠️ **Publish-to-web is fully public** — anyone with the link can view it.
-> Only use it for non-sensitive / demo data. Keep dashboards to one or two.
+> Publish-to-web is fully public. Anyone with the link can view it. Use it only for non-sensitive or demo data.
 
-## SQL & Excel projects
+## SQL and Excel projects
 
-These usually don't need an embed. Give the project page a good write-up and link
-the repo or file with the action buttons. You can delete the `.embed-frame`
-section from that page's `index.html` and keep just the prose and buttons.
+These usually don't need an embed. Give the project page a clear write-up and link the repo or file. Remove the `.embed-frame` section and keep the prose and buttons.
 
-## Adding a preview image to a card (optional)
+## Checklist
 
-- **Featured block** (home + projects pages): save a screenshot at
-  `img/<name>.png`, then in the `.featured-media` div swap the placeholder
-  `<span>` for the commented-out `<img>` tag.
-- Cards themselves are text-only by default — keep them clean, or add your own
-  `<img>` at the top of a `.card` if you want thumbnails.
-
-## Quick checklist
-
-- [ ] Deck rendered with `--embed-resources`
-- [ ] New folder under `projects/` with `index.html` + `presentation.html`
-      (or, for the flagship page, the `<stage>.html` file dropped into `pd-model/`)
-- [ ] Write-up page edited (title, description, tags, buttons, prose)
-- [ ] Multi-stage: matching stage set to `ready: true` in the `STAGES` list
-- [ ] Panel added on `projects.html`
-- [ ] Row added on the home page (`index.html`)
-- [ ] Committed, pushed, Actions green, hard-refreshed
+- [ ] Deck rendered with `--embed-resources` (if there is one)
+- [ ] Project folder created under `projects/`, with `index.html`
+- [ ] Project page edited: title, description, tags, links and write-up
+- [ ] Stage added to the `STAGES` list (multi-stage projects)
+- [ ] Panel added to `projects.html`
+- [ ] Row added to `index.html`
+- [ ] No status labels, em dashes or placeholder controls left in visible copy
+- [ ] Committed, pushed, Actions green, and hard-refreshed (Ctrl+F5)
 
 ## The one recurring gotcha
 
-After any push, if the live site looks unchanged or half-broken, it's almost
-always the **browser cache**, not a real problem. Hard-refresh (**Ctrl+F5**) or
-open an incognito window before assuming anything's wrong.
+If the live site looks unchanged or half-broken after a push, it's almost always the browser cache. Hard-refresh with **Ctrl+F5**, or try an incognito window, before assuming something is wrong.

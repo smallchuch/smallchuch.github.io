@@ -5,9 +5,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#7A5C9E" />
-  <title>Projects — Evan Reynolds</title>
+  <title>Projects · Evan Reynolds</title>
   <meta name="description"
-    content="Projects by Evan Reynolds — credit risk EDA and modelling, presented as Quarto decks with source on GitHub." />
+    content="Projects by Evan Reynolds: credit-risk modelling and mortgage portfolio analytics in Python, with source code on GitHub." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -35,44 +35,39 @@
       <p class="eyebrow">Projects</p>
       <h1 style="font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:.9rem;">The work</h1>
       <p class="lead">
-        Hands-on credit-risk and data work, each project presented as an executive
-        summary with the source and notebook on GitHub. This grows as I complete each
-        stage of the modelling build.
+        Applied credit-risk and portfolio analytics projects in Python. Each one is documented on
+        its own page, with the source code on GitHub.
       </p>
     </div>
   </section>
 
-  <!-- WORK — full-width project panels (real work only) -->
+  <!-- WORK — full-width project panels -->
   <main class="work" style="padding-top:1rem;">
     <div class="wrap-wide">
 
-      <!-- Flagship PD Model -->
+      <!-- Credit Risk PD Model -->
       <article class="project-panel">
         <div class="p-body">
-          <p class="p-flag">Staged modelling build · Python / Quarto</p>
-          <h3>Flagship PD Model — Home Credit default data</h3>
+          <p class="p-flag">Probability of default · Python</p>
+          <h3>Credit Risk PD Model</h3>
           <p class="p-desc">
-            A staged, end-to-end probability-of-default (PD) model on the Home Credit
-            default dataset — from a default-rate driver scan, to a logistic-regression
-            scorecard, a LightGBM challenger, and business recommendations. Each stage is
-            published as its own executive-summary deck, with careful handling of data
-            leakage throughout, and the champion model runs in a live applicant dashboard.
+            A probability of default (PD) model on the Home Credit dataset, comparing an interpretable
+            logistic scorecard with a LightGBM challenger. The outputs are designed as decision support
+            for structured credit assessment, not as a standalone approval or decline.
           </p>
           <ul class="p-points">
-            <li>Default-rate driver scan (EDA) — profiled the data and surfaced the credit characteristics that drive
-              default.</li>
-            <li>Guarded against data leakage — train/test contamination and target leakage from default-rate encoding.
-            </li>
-            <li>Baseline scorecard (logistic regression on WOE features) reaches a test Gini of 0.49, then faces a LightGBM challenger.</li>
-            <li>Champion model deployed as an interactive Streamlit dashboard for scoring individual applicants.</li>
+            <li>Logistic scorecard on WOE-binned features: test Gini of 0.49 and KS of 0.36.</li>
+            <li>Leakage controls against train/test contamination and target leakage from default-rate encoding.</li>
+            <li>LightGBM challenger tested against the scorecard to see whether the added complexity earns its place.</li>
+            <li>Live applicant scoring dashboard.</li>
           </ul>
           <div class="stack">
             <span>Python</span><span>pandas</span><span>scikit-learn</span><span>optbinning</span><span>LightGBM</span><span>Streamlit</span><span>Quarto</span>
           </div>
           <div class="p-cta">
-            <a class="btn btn-primary" href="projects/pd-model/index.html">Open project &rarr;</a>
+            <a class="btn btn-primary" href="projects/pd-model/index.html">View Project &rarr;</a>
             <a class="btn btn-ghost" href="https://github.com/smallchuch/pd_model_project" target="_blank"
-              rel="noopener">Source ↗</a>
+              rel="noopener">Repository ↗</a>
           </div>
         </div>
         <aside class="p-rail">
@@ -84,7 +79,7 @@
             </div>
             <div>
               <dt>Focus</dt>
-              <dd>Default drivers &amp; leakage-safe features</dd>
+              <dd>Default drivers and leakage-safe features</dd>
             </div>
             <div>
               <dt>Toolchain</dt>
@@ -92,36 +87,31 @@
             </div>
             <div>
               <dt>Deliverable</dt>
-              <dd>Stage decks: EDA → PD scorecard → Challenger → Recommendations · live dashboard</dd>
-            </div>
-            <div>
-              <dt>Status</dt>
-              <dd>EDA published · PD scorecard built · challenger in progress</dd>
+              <dd>Four-stage presentation and live applicant dashboard</dd>
             </div>
           </dl>
         </aside>
       </article>
 
-      <!-- Vintage Analysis — Lending Club -->
+      <!-- Mortgage Vintage Analysis -->
       <article class="project-panel">
         <div class="p-body">
-          <p class="p-flag">Portfolio analysis · Python / Quarto</p>
-          <h3>Vintage Analysis — Lending Club loans</h3>
+          <p class="p-flag">Mortgage portfolio analytics · Python</p>
+          <h3>Mortgage Vintage Analysis</h3>
           <p class="p-desc">
-            Grouping Lending Club loans by origination cohort and tracking how each
-            vintage defaults over time — the view a credit team uses to see whether
-            newer books are performing better or worse than older ones at the same age.
+            A reusable pipeline for analysing mortgage performance by origination cohort, including
+            delinquency migration, default behaviour and portfolio trends.
           </p>
           <ul class="p-points">
-            <li>Cohort loans by origination quarter and track cumulative default by months on book.</li>
-            <li>Compare vintages at the same age to spot deteriorating or improving cohorts.</li>
-            <li>Slice curves by grade and term to link performance back to what was underwritten.</li>
+            <li>Groups loans by origination cohort and tracks how each cohort performs over time.</li>
+            <li>Traces delinquency migration and default behaviour across cohorts.</li>
+            <li>Compares cohorts at the same age to show whether newer books are performing better or worse.</li>
           </ul>
           <div class="stack">
-            <span>Python</span><span>pandas</span><span>matplotlib</span><span>Quarto</span>
+            <span>Python</span><span>pandas</span><span>Plotly</span><span>BI</span>
           </div>
           <div class="p-cta">
-            <a class="btn btn-primary" href="projects/vintage-analysis/index.html">Open project &rarr;</a>
+            <a class="btn btn-primary" href="projects/vintage-analysis/index.html">View Project &rarr;</a>
           </div>
         </div>
         <aside class="p-rail">
@@ -129,23 +119,15 @@
           <dl>
             <div>
               <dt>Dataset</dt>
-              <dd>Lending Club loan data (Kaggle)</dd>
+              <dd>Freddie Mac mortgage data</dd>
             </div>
             <div>
               <dt>Focus</dt>
-              <dd>Default curves by origination cohort</dd>
+              <dd>Cohort performance and delinquency migration</dd>
             </div>
             <div>
               <dt>Toolchain</dt>
-              <dd>Python · pandas · matplotlib</dd>
-            </div>
-            <div>
-              <dt>Deliverable</dt>
-              <dd>Executive-summary deck</dd>
-            </div>
-            <div>
-              <dt>Status</dt>
-              <dd>Coming soon</dd>
+              <dd>Python · pandas · Plotly · BI</dd>
             </div>
           </dl>
         </aside>
@@ -159,8 +141,8 @@
     <div class="footer-inner">
       <div>
         <div class="foot-brand">Evan Reynolds</div>
-        <p class="foot-blurb">Mortgage lending &amp; credit administration, moving into credit analytics, policy and
-          governance.</p>
+        <p class="foot-blurb">Mortgage and personal lending professional building applied credit-risk and portfolio
+          analytics projects. Open to opportunities in credit risk and analytics.</p>
       </div>
       <div>
         <h4>Pages</h4>

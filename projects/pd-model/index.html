@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#7A5C9E" />
-  <title>Flagship PD Model — Evan Reynolds</title>
-  <meta name="description" content="A staged, end-to-end probability-of-default (PD) model on the Home Credit default data — EDA, a logistic-regression scorecard, a LightGBM challenger and business recommendations, plus a live applicant PD dashboard." />
+  <title>Credit Risk PD Model · Evan Reynolds</title>
+  <meta name="description" content="Probability of default (PD) model on the Home Credit dataset: an interpretable logistic scorecard compared with a LightGBM challenger, with a live applicant scoring dashboard." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="../../styles.css" />
 
   <!-- =====================================================================
-       Page-scoped styles for the section selector.
+       Page-scoped styles for the stage selector.
        Uses the shared design tokens from styles.css (jacaranda / gold / olive).
        ===================================================================== -->
   <style>
@@ -36,6 +36,7 @@
       transition: border-color .18s ease, box-shadow .2s ease, transform .15s ease, background .2s ease;
     }
     .deck-tab:hover { border-color: var(--jac-200); box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+    .deck-tab:focus-visible { outline: 2px solid var(--jac-300); outline-offset: 2px; }
     .deck-tab.active {
       border-color: var(--jac-300); border-top-color: var(--jac-300);
       background: var(--bg-primary-light); box-shadow: var(--shadow-sm);
@@ -49,15 +50,8 @@
     .deck-tab .t-title { font-family: var(--font-head); font-weight: 600; font-size: .95rem; letter-spacing: -.01em; line-height: 1.25; margin-bottom: .4rem; }
     .deck-tab .t-desc { color: var(--text-secondary); font-size: .82rem; line-height: 1.45;
       display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-    .deck-tab .t-soon {
-      font-family: var(--font-mono); font-size: .58rem; text-transform: uppercase; letter-spacing: .07em;
-      color: var(--status-watch-text); background: var(--status-watch-bg);
-      padding: .1rem .45rem; border-radius: 999px; margin-left: auto; white-space: nowrap;
-    }
-    .deck-tab[data-ready="false"] .t-stage { background: var(--off-white-400); }
-    .deck-tab[data-ready="false"] .t-title { color: var(--text-secondary); }
 
-    /* ---- Deck stage head (title + fullscreen link) ---- */
+    /* ---- Stage head (title + fullscreen link) ---- */
     .deck-stage-head {
       display: flex; align-items: baseline; justify-content: space-between;
       gap: 1rem; flex-wrap: wrap; margin-bottom: .7rem;
@@ -69,22 +63,6 @@
     }
     .deck-fs:hover { color: var(--jac-300); }
     .deck-fs[hidden] { display: none; }
-
-    /* ---- Live app: disabled state until the Streamlit URL is set ---- */
-    .btn.is-off { background: transparent; color: var(--text-tertiary); border: 1px dashed var(--border-subtle);
-                  box-shadow: none; cursor: not-allowed; }
-    .btn.is-off:hover { transform: none; }
-
-    /* ---- Live app callout ---- */
-    .app-callout {
-      display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; flex-wrap: wrap;
-      background: var(--bg-surface); border: 1px solid var(--border-subtle); border-left: 4px solid var(--gold-300);
-      border-radius: 10px; padding: 1.1rem 1.3rem; margin-top: 1.6rem;
-    }
-    .app-callout .kick { font-family: var(--font-mono); font-size: .68rem; text-transform: uppercase;
-                         letter-spacing: .08em; color: var(--text-secondary); margin: 0 0 .25rem; }
-    .app-callout h3 { font-size: 1.05rem; margin: 0 0 .3rem; }
-    .app-callout p.d { color: var(--text-secondary); font-size: .88rem; line-height: 1.45; margin: 0; max-width: 62ch; }
   </style>
 </head>
 <body>
@@ -103,108 +81,74 @@
   <!-- PROJECT HEADER -->
   <section class="proj-header">
     <div class="wrap-wide">
-      <p class="crumb"><a href="../../projects.html">← Projects</a> / Flagship PD Model</p>
-      <span class="tag tag-quarto">Staged modelling build · Python / Quarto</span>
-      <h1>Flagship PD Model — Home Credit default data</h1>
+      <p class="crumb"><a href="../../projects.html">← Projects</a> / Credit Risk PD Model</p>
+      <span class="tag tag-quarto">Probability of default · Home Credit data</span>
+      <h1>Credit Risk PD Model</h1>
       <p class="proj-desc">
-        A staged, end-to-end build of a probability-of-default (PD) model: a default-rate
-        driver scan, a logistic-regression scorecard, a LightGBM challenger, and the business
-        recommendations that turn it into lending decisions. Each stage is presented as its
-        own executive-summary deck — pick a stage below to view it — and the champion model
-        is live in an interactive applicant dashboard.
+        A probability of default (PD) model comparing an interpretable logistic scorecard with a
+        LightGBM challenger. Model outputs are designed as decision support for structured credit
+        assessment, not as a standalone approval or decline.
       </p>
       <div class="proj-actions">
-        <a class="btn btn-gold" id="appLink" href="#" target="_blank" rel="noopener">Launch live PD dashboard ↗</a>
-        <a class="btn btn-primary" id="repoLink" href="https://github.com/smallchuch/pd_model_project" target="_blank" rel="noopener">Source repository ↗</a>
-        <a class="btn btn-ghost" href="https://github.com/smallchuch" target="_blank" rel="noopener">All repos ↗</a>
+        <a class="btn btn-gold" href="https://creditrisklearning-gemg4egrpyvffskrmhxj8h.streamlit.app" target="_blank" rel="noopener">View Live Application ↗</a>
+        <a class="btn btn-primary" href="https://github.com/smallchuch/pd_model_project" target="_blank" rel="noopener">Repository ↗</a>
       </div>
     </div>
   </section>
 
-  <!-- STAGE DECKS — tabs row above a full-width in-page frame -->
+  <!-- STAGES — tabs row above a full-width in-page frame -->
   <section class="section" style="padding-top:1rem;">
     <div class="wrap-wide">
-      <p class="section-kicker">Executive summaries by stage</p>
-      <h2 style="font-size:1.4rem; margin:.3rem 0 1.4rem;">Stage decks</h2>
 
       <!-- Tabs row (populated from JS) -->
-      <div class="deck-tabs" id="deckTabs" role="tablist" aria-label="Model stages"></div>
+      <div class="deck-tabs" id="deckTabs" role="tablist" aria-label="Project stages"></div>
 
-      <!-- Deck stage -->
+      <!-- Stage head -->
       <div class="deck-stage-head">
-        <h2 id="stageTitle">Select a stage</h2>
+        <h2 id="stageTitle">Driver scan (EDA)</h2>
         <a class="deck-fs" id="stageFullscreen" href="#" hidden>Open fullscreen ↗</a>
       </div>
 
       <!-- The frame swaps between a live iframe and an "in progress" shell -->
       <div id="deckFrame" class="embed-frame">
-        <iframe id="deckIframe" src="" title="Stage deck" loading="lazy" allowfullscreen></iframe>
+        <iframe id="deckIframe" src="" title="Stage presentation" loading="lazy" allowfullscreen></iframe>
       </div>
       <p class="embed-note">
-        Use the arrow keys or the on-slide controls to navigate; press <strong>F</strong> for fullscreen.
-        <strong>Open fullscreen</strong> opens the deck in a new tab at the slide you're currently on.
+        Arrow keys move between slides. Press <strong>F</strong> for fullscreen, or use
+        <strong>Open fullscreen</strong> to open the stage in a new tab at the current slide.
       </p>
-
-      <!-- LIVE APP — Streamlit dashboard (05_Applicant_PD_Dashboard) -->
-      <div class="app-callout">
-        <div>
-          <p class="kick">Live model</p>
-          <h3>Applicant PD dashboard</h3>
-          <p class="d">
-            Enter an applicant's details and score them with the champion scorecard — probability of
-            default, risk grade, and the model's known limitations, side by side with any challenger
-            in the registry. Hosted on Streamlit Community Cloud; if it has been idle it can take
-            30 seconds or so to wake up.
-          </p>
-        </div>
-        <a class="btn btn-gold" id="appLink2" href="#" target="_blank" rel="noopener">Launch dashboard ↗</a>
-      </div>
     </div>
   </section>
 
   <!-- WRITE-UP -->
   <section class="section" style="padding-top:0;">
-    <div class="wrap">
+    <div class="wrap-wide">
       <div class="prose">
-        <h2>Overview</h2>
+        <h2>Project objective</h2>
         <p>
-          This is a staged build of a credit-risk model on the Home Credit default dataset.
-          Rather than jumping straight to a model, each phase is done deliberately and
-          published as its own executive summary, so the reasoning behind every modelling
-          choice is visible and auditable — the same standard a lending or risk function
-          would expect.
+          Build an interpretable borrower-level PD model, test whether a more complex challenger
+          provides meaningful improvement, and demonstrate how model outputs can support structured
+          credit assessment.
         </p>
 
-        <h2>The stages</h2>
+        <h2>Key results</h2>
         <ul>
-          <li><strong>01 · Default-rate driver scan (EDA)</strong> — profiling the data, surfacing the
-            credit characteristics that drive default, and building leakage-safe WOE / IV feature signal.</li>
-          <li><strong>02 · PD model — baseline scorecard</strong> — a logistic regression on WOE-binned
-            features, held to success criteria set up front: discrimination, a tight train/test gap,
-            business-sensible coefficient signs and monotonic rank ordering. The baseline reaches a test
-            Gini of 0.49 and KS of 0.36, with a train/test gap under 0.01.</li>
-          <li><strong>03 · Challenger model (LightGBM)</strong> — a gradient-boosted challenger benchmarked
-            against the scorecard on Gini uplift, stability, rank ordering and calibration, to test whether
-            the extra complexity earns its place.</li>
-          <li><strong>04 · Recommendations</strong> — turning the model into lending decisions: cut-off
-            selection, the approval-rate vs bad-rate trade-off, and how the model should be monitored.</li>
+          <li><strong>Logistic scorecard (test sample):</strong> Gini of 0.49 and KS of 0.36.</li>
+          <li><strong>Overfitting check:</strong> train/test gap under 0.01.</li>
         </ul>
 
-        <h2>Guarding against leakage</h2>
+        <h2>Leakage controls</h2>
         <p>
-          A large part of the groundwork went into avoiding the two mistakes that quietly inflate
-          model performance: <em>train/test contamination</em> — letting information from the test
-          set influence training decisions — and <em>target leakage</em> through default-rate
-          encoding, where encoding a category by its observed default rate hands the model a peek
-          at the outcome it is meant to predict. Both were identified and handled so every stage is
-          evaluated honestly.
+          The workflow guards against train/test contamination and target leakage through default-rate
+          encoding, so every stage is evaluated out of sample.
         </p>
 
-        <h2>Links</h2>
+        <h2>Limitations</h2>
         <ul>
-          <li><a id="appLink3" href="#" target="_blank" rel="noopener">Live applicant PD dashboard</a> — the champion model, scoring applicants in real time.</li>
-          <li><a href="https://github.com/smallchuch/pd_model_project" target="_blank" rel="noopener">Project repository</a> — the full source for this build.</li>
-          <li><a href="https://github.com/smallchuch" target="_blank" rel="noopener">All repositories</a></li>
+          <li>Built on the public Home Credit dataset, not live lending data.</li>
+          <li>A research model, not a production system. It has not been validated or governed for real lending decisions.</li>
+          <li>Results apply only to the population in the dataset.</li>
+          <li>Any real use would need broader credit assessment, policy and governance beyond the PD estimate.</li>
         </ul>
       </div>
     </div>
@@ -215,7 +159,7 @@
     <div class="footer-inner">
       <div>
         <div class="foot-brand">Evan Reynolds</div>
-        <p class="foot-blurb">Mortgage lending &amp; credit administration, moving into credit analytics, policy and governance.</p>
+        <p class="foot-blurb">Mortgage and personal lending professional building applied credit-risk and portfolio analytics projects. Open to opportunities in credit risk and analytics.</p>
       </div>
       <div>
         <h4>Pages</h4>
@@ -234,7 +178,7 @@
   </footer>
 
   <!-- =====================================================================
-       Section selector logic.
+       Stage selector logic.
        TO ADD A STAGE: render its deck to a self-contained file in THIS folder
        (quarto render deck.qmd --to revealjs --embed-resources), then set the
        matching entry's `ready: true`. That's the only change needed.
@@ -247,24 +191,24 @@
       {
         id: "eda",
         stage: "01",
-        title: "Default-rate driver scan (EDA)",
-        desc: "Exploratory analysis: what drives default, and leakage-safe features for the model.",
+        title: "Driver scan (EDA)",
+        desc: "What drives default, and leakage-safe features for the model.",
         file: "eda.html",
         ready: true
       },
       {
         id: "pd",
         stage: "02",
-        title: "PD model — baseline scorecard",
-        desc: "Logistic regression on WOE-binned features — the champion model and its validation.",
+        title: "Logistic scorecard",
+        desc: "Logistic regression on WOE-binned features, with validation results.",
         file: "pd.html",
         ready: true
       },
       {
         id: "challenger",
         stage: "03",
-        title: "Challenger model (LightGBM)",
-        desc: "A gradient-boosted model benchmarked against the scorecard on Gini and calibration.",
+        title: "LightGBM challenger",
+        desc: "A gradient-boosted challenger benchmarked against the scorecard.",
         file: "challenger.html",
         ready: true
       },
@@ -272,31 +216,11 @@
         id: "recs",
         stage: "04",
         title: "Recommendations",
-        desc: "Turning scores into lending decisions: cut-offs, approval vs bad rate, monitoring.",
+        desc: "Cut-offs, approval vs bad rate trade-offs, and monitoring.",
         file: "recommendations.html",
         ready: true
       }
     ];
-
-    // ---- Live Streamlit dashboard. Paste the app's URL here once it's deployed
-    //      (e.g. "https://smallchuch-pd-dashboard.streamlit.app"). While it's empty,
-    //      the launch buttons show a disabled "coming soon" state instead of a dead link.
-    const APP_URL = "https://creditrisklearning-gemg4egrpyvffskrmhxj8h.streamlit.app";
-
-    ["appLink", "appLink2", "appLink3"].forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      if (APP_URL) {
-        el.href = APP_URL;
-      } else if (el.classList.contains("btn")) {
-        el.removeAttribute("href");
-        el.classList.add("is-off");
-        el.setAttribute("aria-disabled", "true");
-        el.textContent = "Live dashboard — coming soon";
-      } else {
-        el.closest("li").remove();
-      }
-    });
 
     const tabsEl  = document.getElementById("deckTabs");
     const frameEl = document.getElementById("deckFrame");
@@ -335,25 +259,10 @@
 
       titleEl.textContent = s.title;
 
-      if (s.ready) {
-        // Live deck: show the iframe, enable the fullscreen link
-        frameEl.classList.remove("is-shell");
-        frameEl.innerHTML =
-          '<iframe src="' + s.file + '" title="' + s.title +
-          '" loading="lazy" allowfullscreen></iframe>';
-        fsEl.hidden = false;
-      } else {
-        // In-progress: honest holding state, no fullscreen link
-        frameEl.classList.add("is-shell");
-        frameEl.innerHTML =
-          '<div class="embed-shell-msg">' +
-            '<p class="kick">Stage ' + s.stage + '</p>' +
-            '<h3>' + s.title + '</h3>' +
-            '<p>This stage is in progress — its deck will appear here once it’s ' +
-            'rendered and added to the project.</p>' +
-          '</div>';
-        fsEl.hidden = true;
-      }
+      frameEl.innerHTML =
+        '<iframe src="' + s.file + '" title="' + s.title +
+        '" loading="lazy" allowfullscreen></iframe>';
+      fsEl.hidden = false;
     }
 
     // Open fullscreen at the SAME slide the embedded deck is currently on.
@@ -375,12 +284,12 @@
           hash = ifr.contentWindow.location.hash;   // fallback: mirror the URL hash
         }
       } catch (err) {
-        // cross-origin / local file:// restrictions — just open at the start
+        // cross-origin / local file:// restrictions: just open at the start
       }
       window.open(s.file + hash, "_blank", "noopener");
     });
 
-    // Open the first ready stage by default (falls back to the first stage)
+    // Open the first ready stage by default
     const firstReady = STAGES.findIndex(s => s.ready);
     select(firstReady === -1 ? 0 : firstReady);
   </script>
